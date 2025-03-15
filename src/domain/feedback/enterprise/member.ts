@@ -1,5 +1,6 @@
-import { Entity } from 'src/core/entities/entity';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { Optional } from 'src/core/types/optional';
+import { Entity } from '../../../core/entities/entity';
 import { Feedback } from './feedback';
 import { Project } from './project';
 
@@ -14,8 +15,17 @@ export interface MemberProps {
 }
 
 export class Member extends Entity<MemberProps> {
-  static create(props: MemberProps, id?: UniqueEntityID) {
-    const member = new Member(props, id);
+  static create(
+    props: Optional<MemberProps, 'createdAt'>,
+    id?: UniqueEntityID
+  ) {
+    const member = new Member(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id
+    );
 
     return member;
   }

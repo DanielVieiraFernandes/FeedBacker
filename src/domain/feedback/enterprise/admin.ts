@@ -1,5 +1,6 @@
-import { Entity } from 'src/core/entities/entity';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { Optional } from 'src/core/types/optional';
+import { Entity } from '../../../../src/core/entities/entity';
+import { UniqueEntityID } from '../../../../src/core/entities/unique-entity-id';
 import { Feedback } from './feedback';
 import { Project } from './project';
 
@@ -14,8 +15,14 @@ export interface AdminProps {
 }
 
 export class Admin extends Entity<AdminProps> {
-  static create(props: AdminProps, id?: UniqueEntityID) {
-    const admin = new Admin(props, id);
+  static create(props: Optional<AdminProps, 'createdAt'>, id?: UniqueEntityID) {
+    const admin = new Admin(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id
+    );
 
     return admin;
   }
