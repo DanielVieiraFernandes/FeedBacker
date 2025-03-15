@@ -11,7 +11,7 @@
 
 - NestJs
 - Prisma
-- PostgreSQl
+- PostgreSQL
 - Redis
 - JWT Authentication
 
