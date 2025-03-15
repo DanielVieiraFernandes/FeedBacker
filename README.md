@@ -18,5 +18,4 @@
 
 ## Tecnologias do Front-end
 
-- ReactJs
 - ainda não definido...
