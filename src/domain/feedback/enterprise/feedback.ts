@@ -3,7 +3,7 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 
 export interface FeedbackProps {
   authorId: UniqueEntityID;
-  appraisal: number;
+  grade: number;
   comment?: Comment;
   createdAt: Date;
   updatedAt?: Date;
@@ -14,8 +14,8 @@ export class Feedback extends Entity<FeedbackProps> {
     return this.props.authorId;
   }
 
-  get appraisal() {
-    return this.props.appraisal;
+  get grade() {
+    return this.props.grade;
   }
 
   get comment(): Comment | undefined {

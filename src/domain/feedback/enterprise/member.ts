@@ -15,6 +15,14 @@ export interface MemberProps {
 }
 
 export class Member extends Entity<MemberProps> {
+  get projects(): Project[] | undefined {
+    return this.props.projects;
+  }
+
+  get feedbacks(): Feedback[] | undefined {
+    return this.props.feedbacks;
+  }
+
   static create(
     props: Optional<MemberProps, 'createdAt'>,
     id?: UniqueEntityID

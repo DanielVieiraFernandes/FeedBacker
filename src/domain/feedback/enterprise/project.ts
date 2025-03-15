@@ -1,22 +1,27 @@
-import { Entity } from 'src/core/entities/entity';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { Optional } from 'src/core/types/optional';
+import { Entity } from '../../..//core/entities/entity';
 import { Attachment } from './attachment';
 
 export interface ProjectProps {
-  authorId: UniqueEntityID;
+  authorId?: UniqueEntityID;
   title: string;
   description: string;
   image: string;
   status: string;
-  attachment: Attachment;
+  attachment?: Attachment;
   visible: string;
   createdAt: Date;
   updatedAt?: Date;
 }
 
 export class Project extends Entity<ProjectProps> {
-  get authorId() {
+  get authorId(): UniqueEntityID | undefined {
     return this.props.authorId;
+  }
+
+  set authorId(authorId: UniqueEntityID) {
+    this.props.authorId = authorId;
   }
 
   get title() {
@@ -47,8 +52,18 @@ export class Project extends Entity<ProjectProps> {
     return this.props.updatedAt;
   }
 
-  static create(props: ProjectProps, id?: UniqueEntityID) {
-    const project = new Project(props, id);
+  static create(
+    props: Optional<ProjectProps, 'createdAt' | 'authorId'>,
+    id?: UniqueEntityID
+  ) {
+    const project = new Project(
+      {
+        ...props,
+        createdAt: props.createdAt ?? new Date(),
+        authorId: props.authorId ?? undefined,
+      },
+      id
+    );
 
     return project;
   }

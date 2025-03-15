@@ -15,6 +15,14 @@ export interface AdminProps {
 }
 
 export class Admin extends Entity<AdminProps> {
+  get projects(): Project[] | undefined {
+    return this.props.projects;
+  }
+
+  get feedbacks(): Feedback[] | undefined {
+    return this.props.feedbacks;
+  }
+
   static create(props: Optional<AdminProps, 'createdAt'>, id?: UniqueEntityID) {
     const admin = new Admin(
       {
