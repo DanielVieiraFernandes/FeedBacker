@@ -34,8 +34,6 @@ export class CreateMemberUseCase {
       name,
       email,
       password: passwordHashed,
-      feedbacks: [],
-      projects: [],
     });
 
     await this.memberRepository.create(data);

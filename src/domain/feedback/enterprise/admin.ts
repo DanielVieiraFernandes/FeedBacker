@@ -10,19 +10,29 @@ export interface AdminProps {
   password: string;
   createdAt: Date;
   updatedAt?: Date;
-  projects: Project[];
-  feedbacks: Feedback[];
 }
 
 export class Admin extends Entity<AdminProps> {
-  get projects(): Project[] | undefined {
-    return this.props.projects;
+  get name() {
+    return this.props.name;
   }
 
-  get feedbacks(): Feedback[] | undefined {
-    return this.props.feedbacks;
+  get email() {
+    return this.props.email;
   }
 
+  get password() {
+    return this.props.password;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+  
   static create(props: Optional<AdminProps, 'createdAt'>, id?: UniqueEntityID) {
     const admin = new Admin(
       {

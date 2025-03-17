@@ -8,7 +8,7 @@ let inMemoryAdminRepository: InMemoryAdminRepository;
 let fakeHasher: FakeHasher;
 let sut: CreateAdminUseCase;
 
-describe('Admin Unit Tests', () => {
+describe('Create Admin', () => {
   beforeEach(() => {
     inMemoryAdminRepository = new InMemoryAdminRepository();
     fakeHasher = new FakeHasher();
@@ -38,8 +38,6 @@ describe('Admin Unit Tests', () => {
         name: 'John Doe',
         email: 'johndoe@gmail.com',
         password: '123456',
-        feedbacks: [],
-        projects: [],
       })
     );
 

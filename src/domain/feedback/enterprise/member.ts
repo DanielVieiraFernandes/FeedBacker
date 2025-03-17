@@ -10,17 +10,33 @@ export interface MemberProps {
   password: string;
   createdAt: Date;
   updatedAt?: Date;
-  projects?: Project[];
-  feedbacks?: Feedback[];
+
 }
 
 export class Member extends Entity<MemberProps> {
-  get projects(): Project[] | undefined {
-    return this.props.projects;
+  
+  set name(name: string) {
+    this._props.name = name;
   }
 
-  get feedbacks(): Feedback[] | undefined {
-    return this.props.feedbacks;
+  set email(email: string) {
+    this._props.email = email;
+  }
+
+  set password(password: string) {
+    this._props.password = password;
+  }
+
+  get name() {
+    return this.props.name;
+  }
+
+  get email() {
+    return this.props.email;
+  }
+
+  get password() {
+    return this.props.password;
   }
 
   static create(

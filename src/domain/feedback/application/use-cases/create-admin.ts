@@ -34,8 +34,6 @@ export class CreateAdminUseCase {
       name,
       email,
       password: passwordHashed,
-      feedbacks: [],
-      projects: [],
     });
 
     await this.adminRepository.create(data);

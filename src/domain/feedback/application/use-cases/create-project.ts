@@ -6,7 +6,7 @@ interface CreateProjectUseCaseRequest {
   authorId: string;
   title: string;
   description: string;
-  link: string;
+  repositoryLink: string;
 }
 
 interface CreateProjectUseCaseResponse {}
@@ -18,12 +18,12 @@ export class CreateProjectUseCase {
     authorId,
     title,
     description,
-    link,
+    repositoryLink,
   }: CreateProjectUseCaseRequest): Promise<CreateProjectUseCaseResponse> {
     const data = Project.create({
       authorId: new UniqueEntityID(authorId),
       description,
-      link,
+      repositoryLink,
       title,
     });
 

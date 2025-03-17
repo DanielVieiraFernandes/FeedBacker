@@ -1,16 +1,14 @@
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Optional } from 'src/core/types/optional';
 import { Entity } from '../../../core/entities/entity';
-import { Attachment } from './attachment';
 
 export interface ProjectProps {
   authorId: UniqueEntityID;
   title: string;
   description: string;
-  link: string;
-  images?: Attachment[];
+  repositoryLink: string;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Project extends Entity<ProjectProps> {
@@ -22,16 +20,16 @@ export class Project extends Entity<ProjectProps> {
     this.props.authorId = authorId;
   }
 
+  get repositoryLink() {
+    return this.props.repositoryLink;
+  }
+
   get title() {
     return this.props.title;
   }
 
   get description() {
     return this.props.description;
-  }
-
-  get images() {
-    return this.props.images;
   }
 
   get createdAt() {
@@ -43,14 +41,13 @@ export class Project extends Entity<ProjectProps> {
   }
 
   static create(
-    props: Optional<ProjectProps, 'createdAt' | 'images'>,
+    props: Optional<ProjectProps, 'createdAt'>,
     id?: UniqueEntityID
   ) {
     const project = new Project(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
-        images: props.images ?? undefined,
       },
       id
     );

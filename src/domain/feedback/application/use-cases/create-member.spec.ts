@@ -8,7 +8,7 @@ let inMemoryMemberRepository: InMemoryMemberRepository;
 let fakeHasher: FakeHasher;
 let sut: CreateMemberUseCase;
 
-describe('Member Unit Tests', () => {
+describe('Create Member', () => {
   beforeEach(() => {
     inMemoryMemberRepository = new InMemoryMemberRepository();
     fakeHasher = new FakeHasher();
@@ -38,8 +38,6 @@ describe('Member Unit Tests', () => {
         name: 'John Doe',
         email: 'johndoe@gmail.com',
         password: '123456',
-        feedbacks: [],
-        projects: [],
       })
     );
 

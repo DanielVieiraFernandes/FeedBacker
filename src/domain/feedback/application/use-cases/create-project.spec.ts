@@ -1,16 +1,14 @@
 import { makeAdmin } from '@/domain/test/factories/make-admin';
-import { InMemoryAdminRepository } from '@/domain/test/repositories/in-memory-admin-repository';
 import { InMemoryProjectRepository } from '@/domain/test/repositories/in-memory-project-repository';
 import { CreateProjectUseCase } from './create-project';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
-let inMemoryAdminRepository: InMemoryAdminRepository;
+
 let sut: CreateProjectUseCase;
 
-describe('Project Unit Tests', () => {
+describe('Create project', () => {
   beforeEach(() => {
     inMemoryProjectRepository = new InMemoryProjectRepository();
-    inMemoryAdminRepository = new InMemoryAdminRepository();
     sut = new CreateProjectUseCase(inMemoryProjectRepository);
   });
 
@@ -21,16 +19,19 @@ describe('Project Unit Tests', () => {
       authorId: admin.id.toString(),
       title: 'New Project',
       description: 'description',
-      link: 'link',
+      repositoryLink: 'link',
     });
 
     expect(inMemoryProjectRepository.items).toHaveLength(1);
-    expect(inMemoryProjectRepository.items[0].props).toEqual(
-      expect.objectContaining({
-        title: 'New Project',
-        description: 'description',
-        link: 'link',
-      })
+    expect(inMemoryProjectRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          authorId: admin.id,
+          title: 'New Project',
+          description: 'description',
+          repositoryLink: 'link',
+        }),
+      ])
     );
   });
 });
