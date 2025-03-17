@@ -4,7 +4,7 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export interface FeedbackProps {
   authorId: UniqueEntityID;
   grade: number;
-  comment?: Comment;
+  comment: Comment;
   createdAt: Date;
   updatedAt?: Date;
 }

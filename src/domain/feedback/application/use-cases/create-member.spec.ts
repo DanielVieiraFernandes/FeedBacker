@@ -1,13 +1,18 @@
-import { InMemoryMemberRepository } from '../../../../../test/repositories/in-memory-member-repository';
+import { FakeHasher } from '@/domain/test/cryptography/fake-hasher';
+import { InMemoryMemberRepository } from '@/domain/test/repositories/in-memory-member-repository';
+import { Member } from '../../enterprise/member';
 import { CreateMemberUseCase } from './create-member';
+import { MemberAlreadyExistsError } from './errors/member-already-exists';
 
 let inMemoryMemberRepository: InMemoryMemberRepository;
+let fakeHasher: FakeHasher;
 let sut: CreateMemberUseCase;
 
 describe('Member Unit Tests', () => {
   beforeEach(() => {
     inMemoryMemberRepository = new InMemoryMemberRepository();
-    sut = new CreateMemberUseCase(inMemoryMemberRepository);
+    fakeHasher = new FakeHasher();
+    sut = new CreateMemberUseCase(inMemoryMemberRepository, fakeHasher);
   });
 
   it('should be able to create a member user', async () => {
@@ -22,8 +27,28 @@ describe('Member Unit Tests', () => {
       expect.objectContaining({
         name: 'John Doe',
         email: 'johndoe@gmail.com',
-        password: '123456',
+        password: '123456-hashed',
       })
     );
+  });
+
+  it('should not be able to create a member when email exists', async () => {
+    inMemoryMemberRepository.create(
+      Member.create({
+        name: 'John Doe',
+        email: 'johndoe@gmail.com',
+        password: '123456',
+        feedbacks: [],
+        projects: [],
+      })
+    );
+
+    await expect(() =>
+      sut.execute({
+        name: 'John Doe',
+        email: 'johndoe@gmail.com',
+        password: '123456',
+      })
+    ).rejects.toBeInstanceOf(MemberAlreadyExistsError);
   });
 });

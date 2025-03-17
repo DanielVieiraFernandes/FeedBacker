@@ -10,8 +10,8 @@ export interface AdminProps {
   password: string;
   createdAt: Date;
   updatedAt?: Date;
-  projects?: Project[];
-  feedbacks?: Feedback[];
+  projects: Project[];
+  feedbacks: Feedback[];
 }
 
 export class Admin extends Entity<AdminProps> {
