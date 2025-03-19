@@ -1,23 +1,21 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Optional } from 'src/core/types/optional';
-import { Entity } from '../../../core/entities/entity';
+import { Entity } from '@/core/entities/entity';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Optional } from '@/core/types/optional';
+import { ProjectAttachment } from './project-attachment';
 
 export interface ProjectProps {
   authorId: UniqueEntityID;
   title: string;
   description: string;
   repositoryLink: string;
+  attachments: ProjectAttachment[];
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
 export class Project extends Entity<ProjectProps> {
-  get authorId(): UniqueEntityID | undefined {
+  get authorId() {
     return this.props.authorId;
-  }
-
-  set authorId(authorId: UniqueEntityID) {
-    this.props.authorId = authorId;
   }
 
   get repositoryLink() {
@@ -38,6 +36,14 @@ export class Project extends Entity<ProjectProps> {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get attachments() {
+    return this.props.attachments;
+  }
+
+  set attachments(attachments: ProjectAttachment[]) {
+    this.props.attachments = attachments;
   }
 
   static create(

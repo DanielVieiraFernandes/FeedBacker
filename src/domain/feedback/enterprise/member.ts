@@ -1,20 +1,16 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Optional } from 'src/core/types/optional';
-import { Entity } from '../../../core/entities/entity';
-import { Feedback } from './feedback';
-import { Project } from './project';
+import { Entity } from '@/core/entities/entity';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Optional } from '@/core/types/optional';
 
 export interface MemberProps {
   name: string;
   email: string;
   password: string;
   createdAt: Date;
-  updatedAt?: Date;
-
+  updatedAt?: Date | null;
 }
 
 export class Member extends Entity<MemberProps> {
-  
   set name(name: string) {
     this._props.name = name;
   }

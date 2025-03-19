@@ -1,15 +1,13 @@
-import { Optional } from 'src/core/types/optional';
-import { Entity } from '../../../../src/core/entities/entity';
-import { UniqueEntityID } from '../../../../src/core/entities/unique-entity-id';
-import { Feedback } from './feedback';
-import { Project } from './project';
+import { Entity } from '@/core/entities/entity';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Optional } from '@/core/types/optional';
 
 export interface AdminProps {
   name: string;
   email: string;
   password: string;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Admin extends Entity<AdminProps> {
@@ -32,7 +30,7 @@ export class Admin extends Entity<AdminProps> {
   get updatedAt() {
     return this.props.updatedAt;
   }
-  
+
   static create(props: Optional<AdminProps, 'createdAt'>, id?: UniqueEntityID) {
     const admin = new Admin(
       {

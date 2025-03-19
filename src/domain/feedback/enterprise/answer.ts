@@ -2,41 +2,39 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
-export interface FeedbackProps {
+interface AnswerProps {
   authorId: UniqueEntityID;
-  grade: number;
-  title: string;
-  comment: string;
+  feedbackId: UniqueEntityID;
+  content: string;
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
-export class Feedback extends Entity<FeedbackProps> {
+export class Answer extends Entity<AnswerProps> {
   get authorId() {
     return this.props.authorId;
   }
 
-  get grade() {
-    return this.props.grade;
+  get feedbackId() {
+    return this.props.feedbackId;
   }
-  get title() {
-    return this.props.title;
+
+  get content() {
+    return this.props.content;
   }
-  get comment() {
-    return this.props.comment;
-  }
+
   get createdAt() {
     return this.props.createdAt;
   }
+
   get updatedAt() {
     return this.props.updatedAt;
   }
-
   static create(
-    props: Optional<FeedbackProps, 'createdAt'>,
+    props: Optional<AnswerProps, 'createdAt'>,
     id?: UniqueEntityID
   ) {
-    const feedback = new Feedback(
+    const answer = new Answer(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
@@ -44,6 +42,6 @@ export class Feedback extends Entity<FeedbackProps> {
       id
     );
 
-    return feedback;
+    return answer;
   }
 }

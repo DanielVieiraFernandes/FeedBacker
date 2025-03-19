@@ -16,6 +16,8 @@ describe('Create Feedback', () => {
     await sut.execute({
       authorId: admin.id.toString(),
       grade: 5,
+      comment: "New Comment",
+      title: "New Title"
     });
 
     expect(inMemoryFeedbackRepository.items).toHaveLength(1);
@@ -24,6 +26,8 @@ describe('Create Feedback', () => {
         expect.objectContaining({
           grade: 5,
           authorId: admin.id,
+          comment: "New Comment",
+          title: "New Title",
         }),
       ])
     );
