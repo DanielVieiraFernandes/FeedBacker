@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { HttpModule } from './http/http.module';
 
 @Module({
-  imports: [],
+  imports: [HttpModule],
   controllers: [],
   providers: [],
 })

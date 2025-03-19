@@ -12,3 +12,77 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum UserRole {
+  ADMIN
+  MEMBER
+}
+
+model User {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  role      UserRole   @default(MEMBER)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime?  @updatedAt @map("updated_at")
+  projects  Project[]
+  Feedback  Feedback[]
+  Answer    Answer[]
+
+  @@map("users")
+}
+
+model Project {
+  id             String       @id @default(uuid())
+  authorId       String
+  title          String
+  description    String
+  repositoryLink String       @map("repository_link")
+  User           User         @relation(fields: [authorId], references: [id])
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime?    @updatedAt @map("updated_at")
+  attachments    Attachment[]
+  feedbacks      Feedback[]
+
+  @@map("projects")
+}
+
+model Attachment {
+  id        String    @id @default(uuid())
+  title     String
+  url       String
+  projectId String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  Project   Project?  @relation(fields: [projectId], references: [id])
+
+  @@map("attachments")
+}
+
+model Feedback {
+  id        String    @id @default(uuid())
+  projectId String
+  authorId  String
+  grade     Int
+  title     String
+  comment   String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  answers   Answer[]
+
+  user    User    @relation(fields: [authorId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+model Answer {
+  id         String    @id @default(uuid())
+  authorId   String
+  feedbackId String
+  content    String
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [authorId], references: [id])
+  feedback Feedback @relation(fields: [feedbackId], references: [id])
+}
