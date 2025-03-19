@@ -2,7 +2,10 @@ import { AdminRepository } from '@/domain/feedback/application/repositories/admi
 import { Admin } from '@/domain/feedback/enterprise/admin';
 import { PrismaAdminMapper } from '../mappers/prisma-admin-mapper';
 import { PrismaService } from '../prisma.service';
+import { Injectable } from '@nestjs/common';
 
+
+@Injectable()
 export class PrismaAdminRepository implements AdminRepository {
   constructor(private prisma: PrismaService) {}
 

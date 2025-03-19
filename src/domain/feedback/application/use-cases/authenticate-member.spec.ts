@@ -1,7 +1,7 @@
-import { FakeEncrypter } from '@/domain/test/cryptography/fake-encrypter';
-import { FakeHasher } from '@/domain/test/cryptography/fake-hasher';
-import { makeMember } from '@/domain/test/factories/make-member';
-import { InMemoryMemberRepository } from '@/domain/test/repositories/in-memory-member-repository';
+import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
+import { FakeHasher } from 'test/cryptography/fake-hasher';
+import { makeMember } from 'test/factories/make-member';
+import { InMemoryMemberRepository } from 'test/repositories/in-memory-member-repository';
 import { AuthenticateMemberUseCase } from './authenticate-member';
 import { WrongCredentialsError } from './errors/wrong-credentials-error';
 

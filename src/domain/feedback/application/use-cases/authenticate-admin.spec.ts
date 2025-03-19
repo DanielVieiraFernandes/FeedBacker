@@ -1,7 +1,7 @@
-import { FakeEncrypter } from '@/domain/test/cryptography/fake-encrypter';
-import { FakeHasher } from '@/domain/test/cryptography/fake-hasher';
-import { makeAdmin } from '@/domain/test/factories/make-admin';
-import { InMemoryAdminRepository } from '@/domain/test/repositories/in-memory-admin-repository';
+import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
+import { FakeHasher } from 'test/cryptography/fake-hasher';
+import { makeAdmin } from 'test/factories/make-admin';
+import { InMemoryAdminRepository } from 'test/repositories/in-memory-admin-repository';
 import { AuthenticateAdminUseCase } from './authenticate-admin';
 import { WrongCredentialsError } from './errors/wrong-credentials-error';
 

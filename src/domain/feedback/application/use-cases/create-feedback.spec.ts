@@ -1,5 +1,5 @@
-import { makeAdmin } from '@/domain/test/factories/make-admin';
-import { InMemoryFeedbackRepository } from '@/domain/test/repositories/in-memory-feedback-repository';
+import { makeAdmin } from 'test/factories/make-admin';
+import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { CreateFeedbackUseCase } from './create-feedback';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
@@ -16,8 +16,8 @@ describe('Create Feedback', () => {
     await sut.execute({
       authorId: admin.id.toString(),
       grade: 5,
-      comment: "New Comment",
-      title: "New Title"
+      comment: 'New Comment',
+      title: 'New Title',
     });
 
     expect(inMemoryFeedbackRepository.items).toHaveLength(1);
@@ -26,8 +26,8 @@ describe('Create Feedback', () => {
         expect.objectContaining({
           grade: 5,
           authorId: admin.id,
-          comment: "New Comment",
-          title: "New Title",
+          comment: 'New Comment',
+          title: 'New Title',
         }),
       ])
     );

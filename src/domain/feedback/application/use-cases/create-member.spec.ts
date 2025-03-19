@@ -1,5 +1,5 @@
-import { FakeHasher } from '@/domain/test/cryptography/fake-hasher';
-import { InMemoryMemberRepository } from '@/domain/test/repositories/in-memory-member-repository';
+import { FakeHasher } from 'test/cryptography/fake-hasher';
+import { InMemoryMemberRepository } from 'test/repositories/in-memory-member-repository';
 import { Member } from '../../enterprise/member';
 import { CreateMemberUseCase } from './create-member';
 import { MemberAlreadyExistsError } from './errors/member-already-exists';

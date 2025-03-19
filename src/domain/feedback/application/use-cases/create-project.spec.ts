@@ -1,6 +1,6 @@
-import { makeAdmin } from '@/domain/test/factories/make-admin';
-import { InMemoryProjectAttachmentRepository } from '@/domain/test/repositories/in-memory-project-attachment-repoitory';
-import { InMemoryProjectRepository } from '@/domain/test/repositories/in-memory-project-repository';
+import { makeAdmin } from 'test/factories/make-admin';
+import { InMemoryProjectAttachmentRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
+import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { CreateProjectUseCase } from './create-project';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;

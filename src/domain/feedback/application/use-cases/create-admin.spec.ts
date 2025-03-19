@@ -1,5 +1,5 @@
-import { FakeHasher } from '@/domain/test/cryptography/fake-hasher';
-import { InMemoryAdminRepository } from '@/domain/test/repositories/in-memory-admin-repository';
+import { FakeHasher } from 'test/cryptography/fake-hasher';
+import { InMemoryAdminRepository } from 'test/repositories/in-memory-admin-repository';
 import { Admin } from '../../enterprise/admin';
 import { CreateAdminUseCase } from './create-admin';
 import { AdminAlreadyExistsError } from './errors/admin-already-exists';

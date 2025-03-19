@@ -1,4 +1,7 @@
-import { Module } from "@nestjs/common";
+import { DatabaseModule } from '@faker-js/faker/.';
+import { Module } from '@nestjs/common';
 
-@Module({})
-export class HttpModule {}  
+@Module({
+  imports: [DatabaseModule],
+})
+export class HttpModule {}
