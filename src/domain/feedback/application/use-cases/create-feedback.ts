@@ -4,6 +4,7 @@ import { FeedbackRepository } from '../repositories/feedback-repository';
 
 interface CreateFeedbackUseCaseRequest {
   authorId: string;
+  projectId: string;
   grade: number;
   comment: string;
   title: string;
@@ -16,12 +17,14 @@ export class CreateFeedbackUseCase {
 
   async execute({
     authorId,
+    projectId,
     grade,
     comment,
     title,
   }: CreateFeedbackUseCaseRequest): Promise<CreateFeedbackUseCaseResponse> {
     const feedback = Feedback.create({
       authorId: new UniqueEntityID(authorId),
+      projectId: new UniqueEntityID(projectId),
       grade,
       comment,
       title,

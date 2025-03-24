@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Member } from '../../enterprise/member';
 import { HashGenerator } from '../cryptography/hash-generator';
 import { MemberRepository } from '../repositories/member-repository';
@@ -11,6 +12,7 @@ interface CreateMemberUseCaseRequest {
 
 interface CreateMemberUseCaseResponse {}
 
+@Injectable()
 export class CreateMemberUseCase {
   constructor(
     private memberRepository: MemberRepository,

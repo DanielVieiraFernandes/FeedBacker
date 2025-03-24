@@ -46,6 +46,18 @@ export class Project extends Entity<ProjectProps> {
     this.props.attachments = attachments;
   }
 
+  set repositoryLink(repositoryLink: string) {
+    this.props.repositoryLink = repositoryLink;
+  }
+
+  set title(title: string) {
+    this.props.title = title;
+  }
+
+  set description(description: string) {
+    this.props.description = description;
+  }
+
   static create(
     props: Optional<ProjectProps, 'createdAt'>,
     id?: UniqueEntityID

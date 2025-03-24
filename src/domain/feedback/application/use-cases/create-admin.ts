@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Admin } from '../../enterprise/admin';
 import { HashGenerator } from '../cryptography/hash-generator';
 import { AdminRepository } from '../repositories/admin-repository';
@@ -11,6 +12,7 @@ interface CreateAdminUseCaseRequest {
 
 interface CreateAdminUseCaseResponse {}
 
+@Injectable()
 export class CreateAdminUseCase {
   constructor(
     private adminRepository: AdminRepository,

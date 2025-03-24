@@ -1,4 +1,5 @@
 import { makeAdmin } from 'test/factories/make-admin';
+import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { CreateFeedbackUseCase } from './create-feedback';
 
@@ -12,9 +13,11 @@ describe('Create Feedback', () => {
 
   it('Should be able to create a feedback', async () => {
     const admin = makeAdmin();
+    const project = makeProject();
 
     await sut.execute({
       authorId: admin.id.toString(),
+      projectId: project.id.toString(),
       grade: 5,
       comment: 'New Comment',
       title: 'New Title',
