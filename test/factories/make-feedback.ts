@@ -14,6 +14,7 @@ export function makeFeedback(
       grade: faker.number.int(),
       title: faker.lorem.sentence(),
       comment: faker.lorem.paragraph(),
+      projectId: new UniqueEntityID(),
       ...override,
     },
     id

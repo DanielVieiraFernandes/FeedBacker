@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Admin, AdminProps } from 'src/domain/feedback/enterprise/admin';
 export function makeAdmin(

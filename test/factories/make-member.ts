@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Member, MemberProps } from 'src/domain/feedback/enterprise/member';
 export function makeMember(
@@ -18,4 +18,3 @@ export function makeMember(
 
   return member;
 }
-
