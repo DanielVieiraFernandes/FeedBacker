@@ -1,8 +1,8 @@
 import { MemberRepository } from '@/domain/feedback/application/repositories/member-repository';
 import { Member } from '@/domain/feedback/enterprise/member';
+import { Injectable } from '@nestjs/common';
 import { PrismaMemberMapper } from '../mappers/prisma-member-mapper';
 import { PrismaService } from '../prisma.service';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PrismaMemberRepository implements MemberRepository {
@@ -19,17 +19,42 @@ export class PrismaMemberRepository implements MemberRepository {
     });
   }
 
-  save(member: Member): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(member: Member): Promise<void> {
+    const data = PrismaMemberMapper.toPrisma(member);
+
+    await this.prisma.user.update({
+      where: {
+        id: data.id,
+        role: 'MEMBER',
+      },
+      data,
+    });
   }
 
-  delete(member: Member): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(member: Member): Promise<void> {
+    await this.prisma.user.delete({
+      where: {
+        id: member.id.toString(),
+        role: 'ADMIN',
+      },
+    });
   }
-  findById(id: string): Promise<Member | null> {
-    throw new Error('Method not implemented.');
+
+  async findById(id: string): Promise<Member | null> {
+    const data = await this.prisma.user.findUnique({
+      where: {
+        id,
+        role: 'MEMBER',
+      },
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    return PrismaMemberMapper.toDomain(data);
   }
-  
+
   async findByEmail(email: string): Promise<Member | null> {
     const member = await this.prisma.user.findUnique({
       where: {

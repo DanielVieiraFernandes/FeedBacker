@@ -1,9 +1,8 @@
 import { AdminRepository } from '@/domain/feedback/application/repositories/admin-repository';
 import { Admin } from '@/domain/feedback/enterprise/admin';
+import { Injectable } from '@nestjs/common';
 import { PrismaAdminMapper } from '../mappers/prisma-admin-mapper';
 import { PrismaService } from '../prisma.service';
-import { Injectable } from '@nestjs/common';
-
 
 @Injectable()
 export class PrismaAdminRepository implements AdminRepository {
@@ -19,15 +18,42 @@ export class PrismaAdminRepository implements AdminRepository {
       },
     });
   }
-  save(admin: Admin): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(admin: Admin): Promise<void> {
+    const data = PrismaAdminMapper.toPrisma(admin);
+
+    await this.prisma.user.update({
+      where: {
+        id: data.id,
+        role: 'ADMIN',
+      },
+      data,
+    });
   }
-  delete(admin: Admin): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async delete(admin: Admin): Promise<void> {
+    await this.prisma.user.delete({
+      where: {
+        id: admin.id.toString(),
+        role: 'ADMIN',
+      },
+    });
   }
-  findById(id: string): Promise<Admin | null> {
-    throw new Error('Method not implemented.');
+
+  async findById(id: string): Promise<Admin | null> {
+    const data = await this.prisma.user.findUnique({
+      where: {
+        id,
+        role: 'ADMIN',
+      },
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    return PrismaAdminMapper.toDomain(data);
   }
+
   async findByEmail(email: string): Promise<Admin | null> {
     const admin = await this.prisma.user.findUnique({
       where: {
