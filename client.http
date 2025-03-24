@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:3333
+
+POST {{baseUrl}}/accounts/member
+Content-Type: application/json
+
+{
+    "name": "Daniel Vieira",
+    "email": "dani@gmail.com",
+    "password": "123456"
+}
+###
+
+POST {{baseUrl}}/accounts/admin
+Content-Type: application/json
+
+{
+    "name": "Daniel Vieira",
+    "email": "daniadmin@gmail.com",
+    "password": "123456"
+}
