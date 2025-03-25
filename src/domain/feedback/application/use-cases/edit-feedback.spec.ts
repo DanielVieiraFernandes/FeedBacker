@@ -3,12 +3,8 @@ import { makeFeedback } from 'test/factories/make-feedback';
 import { makeMember } from 'test/factories/make-member';
 import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
-import { InMemoryProjectAttachmentRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
-import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { EditFeedbackUseCase } from './edit-feedback';
-import { EditProjectUseCase } from './edit-project';
 import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
-import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
 let sut: EditFeedbackUseCase;

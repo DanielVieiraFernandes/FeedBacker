@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { Encrypter } from '../cryptography/encrypter';
 import { HashComparer } from '../cryptography/hash-comparer';
 import { AdminRepository } from '../repositories/admin-repository';
@@ -12,6 +13,7 @@ interface AuthenticateAdminUseCaseResponse {
   accessToken: string;
 }
 
+@Injectable()
 export class AuthenticateAdminUseCase {
   constructor(
     private adminRepository: AdminRepository,

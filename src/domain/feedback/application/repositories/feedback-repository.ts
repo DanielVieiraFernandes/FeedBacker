@@ -5,4 +5,5 @@ export abstract class FeedbackRepository {
   abstract create(feedback: Feedback): Promise<void>;
   abstract save(feedback: Feedback): Promise<void>;
   abstract findById(params: findByIdProps): Promise<Feedback | null>;
+  abstract findByProject(projectId: string, page: number): Promise<Feedback[]>;
 }

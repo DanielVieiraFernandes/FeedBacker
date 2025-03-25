@@ -17,6 +17,10 @@ export class Feedback extends Entity<FeedbackProps> {
     return this.props.authorId;
   }
 
+  get projectId() {
+    return this.props.projectId;
+  }
+
   get grade() {
     return this.props.grade;
   }
