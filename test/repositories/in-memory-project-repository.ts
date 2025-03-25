@@ -31,6 +31,14 @@ export class InMemoryProjectRepository implements ProjectRepository {
     return project;
   }
 
+  async findMany(page: number): Promise<Project[]> {
+    const projects = this.items
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20);
+
+    return projects;
+  }
+
   async delete(id: string): Promise<void> {
     const project = this.items.findIndex(item => item.id.toString() === id);
 

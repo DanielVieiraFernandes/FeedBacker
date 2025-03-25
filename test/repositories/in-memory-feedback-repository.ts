@@ -26,4 +26,15 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
 
     return feedback;
   }
+
+  async findByProject(projectId: string, page: number): Promise<Feedback[]> {
+    const data = this.items.filter(
+      feedback => feedback.projectId.toString() === projectId
+    );
+    const feedback = data
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * 20, page * 20);
+
+    return feedback;
+  }
 }

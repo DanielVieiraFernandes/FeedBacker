@@ -18,3 +18,23 @@ Content-Type: application/json
     "email": "daniadmin@gmail.com",
     "password": "123456"
 }
+
+### 
+
+POST {{baseUrl}}/sessions/admin
+Content-Type: application/json
+
+{
+    "email": "daniadmin@gmail.com",
+    "password": "123456"
+}
+
+### 
+
+POST {{baseUrl}}/sessions/member
+Content-Type: application/json
+
+{
+    "email": "dani@gmail.com",
+    "password": "123456"
+}
