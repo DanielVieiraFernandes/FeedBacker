@@ -8,6 +8,9 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private prisma: PrismaService) {}
+  findMany(page: number): Promise<Project[]> {
+    throw new Error('Method not implemented.');
+  }
 
   async create(project: Project): Promise<void> {
     const data = PrismaProjectMapper.toPrisma(project);

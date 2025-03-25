@@ -1,5 +1,6 @@
 import { CreateMemberUseCase } from '@/domain/feedback/application/use-cases/create-member';
 import { MemberAlreadyExistsError } from '@/domain/feedback/application/use-cases/errors/member-already-exists';
+import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,
   Body,
@@ -10,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import {Public} from "@/infra/auth/public";
 const createAccountBodySchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
@@ -20,6 +20,7 @@ const createAccountBodySchema = z.object({
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>;
 
 @Controller('/accounts')
+@Public()
 export class CreateMemberAccountController {
   constructor(private createMemberUseCase: CreateMemberUseCase) {}
 
