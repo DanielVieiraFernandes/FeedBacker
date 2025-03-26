@@ -20,8 +20,16 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
   }
 
-  save(project: Project): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(project: Project): Promise<void> {
+    const data = PrismaProjectMapper.toPrisma(project);
+
+    await this.prisma.project.update({
+      where: {
+        id: data.id,
+        authorId: data.authorId,
+      },
+      data,
+    });
   }
 
   async findById({ authorId, id }: findByIdProps): Promise<Project | null> {
