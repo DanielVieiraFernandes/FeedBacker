@@ -35,8 +35,8 @@ export class AuthenticateMemberAccountController {
         email,
         password,
       });
-
-      return { accessToken };
+      
+      return { access_token: accessToken };
     } catch (error) {
       if (error instanceof WrongCredentialsError) {
         throw new UnauthorizedException(error.message);
