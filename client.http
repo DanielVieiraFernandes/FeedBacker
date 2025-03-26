@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3333
-
+@authToken = {{authenticate.response.body.access_token}}
 POST {{baseUrl}}/accounts/member
 Content-Type: application/json
 
@@ -21,6 +21,8 @@ Content-Type: application/json
 
 ### 
 
+# @name authenticate
+
 POST {{baseUrl}}/sessions/admin
 Content-Type: application/json
 
@@ -37,4 +39,16 @@ Content-Type: application/json
 {
     "email": "dani@gmail.com",
     "password": "123456"
+}
+
+### 
+POST {{baseUrl}}/projects
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Test",
+    "description":"description",
+    "repositoryLink": "link",
+    "attachmentsIds": ["1","2"]
 }
