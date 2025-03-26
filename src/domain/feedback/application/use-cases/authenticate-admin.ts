@@ -40,6 +40,8 @@ export class AuthenticateAdminUseCase {
       throw new WrongCredentialsError();
     }
 
+    console.log(admin.id.toString());
+
     const accessToken = await this.encrypter.encrypt({
       sub: admin.id.toString(),
     });
