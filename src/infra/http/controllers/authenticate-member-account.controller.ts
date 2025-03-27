@@ -35,7 +35,7 @@ export class AuthenticateMemberAccountController {
         email,
         password,
       });
-      
+
       return { access_token: accessToken };
     } catch (error) {
       if (error instanceof WrongCredentialsError) {
