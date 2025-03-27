@@ -1,5 +1,6 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.access_token}}
+
 POST {{baseUrl}}/accounts/member
 Content-Type: application/json
 
@@ -51,4 +52,24 @@ Authorization: Bearer {{authToken}}
     "description":"description",
     "repositoryLink": "link",
     "attachmentsIds": ["1","2"]
+}
+
+### 
+POST {{baseUrl}}/projects/6252f5d8-49cf-44f5-ae2f-7b39cc8aa242/feedbacks
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "title": "Feedback-test",
+    "grade": "3",
+    "comment": "New comment"
+}
+
+### 
+POST {{baseUrl}}/feedbacks/35373c22-5b16-4773-afa4-1baa0ccc5a9d/answers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "content": "Content"
 }
