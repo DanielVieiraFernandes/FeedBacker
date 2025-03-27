@@ -1,7 +1,7 @@
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeFeedback } from 'test/factories/make-feedback';
 import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-repository';
-import { CreateAnswerUseCase } from './create-answer';
+import { CreateAnswerUseCase } from './create-feedback-answer';
 
 let inMemoryAnswerRepository: InMemoryAnswerRepository;
 let sut: CreateAnswerUseCase;
