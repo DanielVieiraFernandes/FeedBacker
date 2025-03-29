@@ -1,6 +1,6 @@
 import { FeedbackRepository } from '@/domain/feedback/application/repositories/feedback-repository';
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
-import { Feedback } from '@/domain/feedback/enterprise/feedback';
+import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
 import { Injectable } from '@nestjs/common';
 import { PrismaFeedbackMapper } from '../mappers/prisma-feedback-mapper';
 import { PrismaService } from '../prisma.service';
@@ -29,11 +29,10 @@ export class PrismaFeedbackRepository implements FeedbackRepository {
     });
   }
 
-  async findById({ authorId, id }: findByIdProps): Promise<Feedback | null> {
+  async findById({ id }: findByIdProps): Promise<Feedback | null> {
     const feedback = await this.prisma.feedback.findUnique({
       where: {
         id,
-        authorId,
       },
     });
 

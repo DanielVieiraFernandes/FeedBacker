@@ -1,15 +1,30 @@
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
 import { ProjectRepository } from '@/domain/feedback/application/repositories/project-repository';
-import { Project } from '@/domain/feedback/enterprise/project';
+import { Project } from '@/domain/feedback/enterprise/entities/project';
+import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
 import { Injectable } from '@nestjs/common';
+import { PrismaProjectDetailsMapper } from '../mappers/prisma-project-details-mapper';
 import { PrismaProjectMapper } from '../mappers/prisma-project-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private prisma: PrismaService) {}
-  findMany(page: number): Promise<Project[]> {
-    throw new Error('Method not implemented.');
+
+  async findMany(page: number): Promise<ProjectDetails[]> {
+    const projects = await this.prisma.project.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        attachments: true,
+        author: true,
+      },
+      take: 25,
+      skip: (page - 1) * 25,
+    });
+
+    return projects.map(PrismaProjectDetailsMapper.toDomain);
   }
 
   async create(project: Project): Promise<void> {
@@ -32,11 +47,14 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
   }
 
-  async findById({ authorId, id }: findByIdProps): Promise<Project | null> {
+  async findById({ id }: findByIdProps): Promise<ProjectDetails | null> {
     const project = await this.prisma.project.findUnique({
       where: {
         id,
-        authorId,
+      },
+      include: {
+        attachments: true,
+        author: true,
       },
     });
 
@@ -44,7 +62,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       return null;
     }
 
-    return PrismaProjectMapper.toDomain(project);
+    return PrismaProjectDetailsMapper.toDomain(project);
   }
 
   async delete(id: string): Promise<void> {

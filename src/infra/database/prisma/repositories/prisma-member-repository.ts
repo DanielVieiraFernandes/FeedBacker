@@ -1,5 +1,5 @@
 import { MemberRepository } from '@/domain/feedback/application/repositories/member-repository';
-import { Member } from '@/domain/feedback/enterprise/member';
+import { Member } from '@/domain/feedback/enterprise/entities/member';
 import { Injectable } from '@nestjs/common';
 import { PrismaMemberMapper } from '../mappers/prisma-member-mapper';
 import { PrismaService } from '../prisma.service';

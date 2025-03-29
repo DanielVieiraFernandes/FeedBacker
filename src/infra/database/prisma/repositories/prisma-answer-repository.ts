@@ -1,5 +1,5 @@
 import { AnswerRepository } from '@/domain/feedback/application/repositories/answer-repository';
-import { Answer } from '@/domain/feedback/enterprise/answer';
+import { Answer } from '@/domain/feedback/enterprise/entities/answer';
 import { Injectable } from '@nestjs/common';
 import { PrismaAnswerMapper } from '../mappers/prisma-answer-mapper';
 import { PrismaService } from '../prisma.service';

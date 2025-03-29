@@ -1,5 +1,5 @@
 import { AdminRepository } from '@/domain/feedback/application/repositories/admin-repository';
-import { Admin } from '@/domain/feedback/enterprise/admin';
+import { Admin } from '@/domain/feedback/enterprise/entities/admin';
 import { Injectable } from '@nestjs/common';
 import { PrismaAdminMapper } from '../mappers/prisma-admin-mapper';
 import { PrismaService } from '../prisma.service';

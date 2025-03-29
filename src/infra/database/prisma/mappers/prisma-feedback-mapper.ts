@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Feedback } from '@/domain/feedback/enterprise/feedback';
+import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
 import { Prisma, Feedback as PrismaFeedback } from '@prisma/client';
 
 export class PrismaFeedbackMapper {
