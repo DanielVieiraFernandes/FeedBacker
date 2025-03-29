@@ -1,4 +1,4 @@
-import { Feedback } from '../../enterprise/feedback';
+import { Feedback } from '../../enterprise/entities/feedback';
 import { findByIdProps } from './interfaces/find-by-d-interface';
 
 export abstract class FeedbackRepository {
