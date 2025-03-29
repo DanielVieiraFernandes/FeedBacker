@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Injectable } from '@nestjs/common';
-import { Feedback } from '../../enterprise/feedback';
+import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 
 interface CreateFeedbackUseCaseRequest {

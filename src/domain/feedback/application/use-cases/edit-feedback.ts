@@ -1,6 +1,7 @@
-import { Feedback } from '../../enterprise/feedback';
+import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
+import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface EditFeedbackUseCaseRequest {
   authorId: string;
@@ -25,12 +26,15 @@ export class EditFeedbackUseCase {
     title,
   }: EditFeedbackUseCaseRequest): Promise<EditFeedbackUseCaseResponse> {
     const feedback = await this.feedbackRepository.findById({
-      authorId,
       id: feedbackId,
     });
 
     if (!feedback) {
       throw new FeedbackDoesNotExistError();
+    }
+
+    if (authorId !== feedback.authorId.toString()) {
+      throw new UserNotAllowedError();
     }
 
     feedback.title = title;

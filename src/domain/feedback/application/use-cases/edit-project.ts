@@ -1,8 +1,8 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Project } from '../../enterprise/project';
-import { ProjectAttachment } from '../../enterprise/project-attachment';
+import { Project } from '../../enterprise/entities/project';
+import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
+import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface EditProjectUseCaseRequest {
   authorId: string;
@@ -27,7 +27,6 @@ export class EditProjectUseCase {
     projectId,
   }: EditProjectUseCaseRequest): Promise<EditProjectUseCaseResponse> {
     const project = await this.projectRepository.findById({
-      authorId,
       id: projectId,
     });
 
@@ -35,14 +34,33 @@ export class EditProjectUseCase {
       throw new ProjectDoesNotExistError();
     }
 
-    project.title = title;
-    project.description = description;
-    project.repositoryLink = repositoryLink;
+    if (authorId !== project.authorId.toString()) {
+      throw new UserNotAllowedError();
+    }
 
-    await this.projectRepository.save(project);
+    const projectToDomain = Project.create({
+      authorId: project.authorId,
+      description,
+      repositoryLink,
+      title,
+      attachments: project.attachments.map(attachment =>
+        ProjectAttachment.create({
+          attachmentId: attachment.id.toString(),
+          projectId: project.projectId.toString(),
+        })
+      ),
+      createdAt: project.createdAt,
+      updatedAt: project.updatedAt,
+    });
+
+    projectToDomain.title = title;
+    projectToDomain.description = description;
+    projectToDomain.repositoryLink = repositoryLink;
+
+    await this.projectRepository.save(projectToDomain);
 
     return {
-      project,
+      project: projectToDomain,
     };
   }
 }

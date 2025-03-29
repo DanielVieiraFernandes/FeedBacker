@@ -1,8 +1,8 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Project } from '../../enterprise/project';
-import { ProjectAttachment } from '../../enterprise/project-attachment';
-import { ProjectRepository } from '../repositories/project-repository';
 import { Injectable } from '@nestjs/common';
+import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
+import { Project } from '../../enterprise/entities/project';
+import { ProjectRepository } from '../repositories/project-repository';
 
 interface CreateProjectUseCaseRequest {
   authorId: string;
@@ -25,8 +25,7 @@ export class CreateProjectUseCase {
     repositoryLink,
     attachmentsIds,
   }: CreateProjectUseCaseRequest): Promise<CreateProjectUseCaseResponse> {
-
-    console.log("Caso de uso: ",authorId);
+    console.log('Caso de uso: ', authorId);
 
     const project = Project.create({
       authorId: new UniqueEntityID(authorId),

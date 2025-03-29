@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Member } from '../../enterprise/member';
+import { Member } from '../../enterprise/entities/member';
 import { HashGenerator } from '../cryptography/hash-generator';
 import { MemberRepository } from '../repositories/member-repository';
 import { MemberAlreadyExistsError } from './errors/member-already-exists';

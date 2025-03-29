@@ -1,4 +1,5 @@
-import { Project } from '../../enterprise/project';
+import { Injectable } from '@nestjs/common';
+import { ProjectDetails } from '../../enterprise/value-objects/project-details';
 import { ProjectRepository } from '../repositories/project-repository';
 
 interface FetchRecentProjectsUseCaseRequest {
@@ -6,9 +7,10 @@ interface FetchRecentProjectsUseCaseRequest {
 }
 
 interface FetchRecentProjectsUseCaseResponse {
-  projects: Project[];
+  projects: ProjectDetails[];
 }
 
+@Injectable()
 export class FetchRecentProjectsUseCase {
   constructor(private projectRepository: ProjectRepository) {}
 

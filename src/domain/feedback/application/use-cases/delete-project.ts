@@ -1,5 +1,6 @@
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
+import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface DeleteProjectUseCaseRequest {
   authorId: string;
@@ -16,7 +17,6 @@ export class DeleteProjectUseCase {
     projectId,
   }: DeleteProjectUseCaseRequest): Promise<DeleteProjectUseCaseResponse> {
     const project = await this.projectRepository.findById({
-      authorId,
       id: projectId,
     });
 
@@ -24,7 +24,11 @@ export class DeleteProjectUseCase {
       throw new ProjectDoesNotExistError();
     }
 
-    await this.projectRepository.delete(project.id.toString());
+    if (authorId !== project.authorId.toString()) {
+      throw new UserNotAllowedError();
+    }
+
+    await this.projectRepository.delete(project.projectId.toString());
 
     return {};
   }

@@ -1,4 +1,4 @@
-import { Feedback } from '@/domain/feedback/enterprise/feedback';
+import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 
 interface FetchFeedbacksByProjectUseCaseRequest {

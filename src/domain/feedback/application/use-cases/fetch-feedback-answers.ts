@@ -1,4 +1,4 @@
-import { Answer } from '../../enterprise/answer';
+import { Answer } from '../../enterprise/entities/answer';
 import { AnswerRepository } from '../repositories/answer-repository';
 
 interface FetchFeedbackAnswersUseCaseRequest {

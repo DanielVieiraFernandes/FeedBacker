@@ -1,4 +1,4 @@
-import { Attachment } from '../../enterprise/attachment';
+import { Attachment } from '../../enterprise/entities/attachment';
 import { AttachmentRepository } from '../repositories/attachment-repository';
 import { Uploader } from '../storage/uploader';
 import { InvalidAttachmentTypeError } from './errors/invalid-attachment-file-type';
