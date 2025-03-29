@@ -39,7 +39,7 @@ model Project {
   title          String
   description    String
   repositoryLink String       @map("repository_link")
-  User           User         @relation(fields: [authorId], references: [id])
+  author         User         @relation(fields: [authorId], references: [id])
   createdAt      DateTime     @default(now()) @map("created_at")
   updatedAt      DateTime?    @updatedAt @map("updated_at")
   attachments    Attachment[]
