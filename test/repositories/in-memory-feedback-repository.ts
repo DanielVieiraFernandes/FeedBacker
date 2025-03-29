@@ -1,6 +1,6 @@
 import { FeedbackRepository } from '@/domain/feedback/application/repositories/feedback-repository';
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
-import { Feedback } from '@/domain/feedback/enterprise/feedback';
+import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
 
 export class InMemoryFeedbackRepository implements FeedbackRepository {
   public items: Feedback[] = [];

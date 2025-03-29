@@ -1,6 +1,9 @@
-import { faker } from "@faker-js/faker";
+import {
+  Member,
+  MemberProps,
+} from '@/domain/feedback/enterprise/entities/member';
+import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Member, MemberProps } from 'src/domain/feedback/enterprise/member';
 export function makeMember(
   override: Partial<MemberProps> = {},
   id?: UniqueEntityID

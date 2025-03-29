@@ -1,6 +1,9 @@
+import {
+  Answer,
+  AnswerProps,
+} from '@/domain/feedback/enterprise/entities/answer';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Answer,  AnswerProps} from '@/domain/feedback/enterprise/answer';
 export function makeAnswer(
   override: Partial<AnswerProps> = {},
   id?: UniqueEntityID

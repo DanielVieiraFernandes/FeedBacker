@@ -1,6 +1,7 @@
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
 import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { Project } from '@/domain/feedback/enterprise/project';
+import { Project } from '@/domain/feedback/enterprise/entities/project';
+import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
 import { ProjectRepository } from 'src/domain/feedback/application/repositories/project-repository';
 
 export class InMemoryProjectRepository implements ProjectRepository {
@@ -19,19 +20,17 @@ export class InMemoryProjectRepository implements ProjectRepository {
     this.items[itemIndex] = project;
   }
 
-  async findById({ id, authorId }: findByIdProps): Promise<Project | null> {
-    const project = this.items.find(
-      item => item.id.toString() === id && item.authorId.toString() === authorId
-    );
+  async findById({ id }: findByIdProps): Promise<ProjectDetails | null> {
+    const project = this.items.find(item => item.id.toString() === id);
 
     if (!project) {
       return null;
     }
 
-    return project;
+    return ProjectDetails.create;
   }
 
-  async findMany(page: number): Promise<Project[]> {
+  async findMany(page: number): Promise<ProjectDetails[]> {
     const projects = this.items
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
       .slice((page - 1) * 20, page * 20);

@@ -1,5 +1,5 @@
 import { AdminRepository } from '@/domain/feedback/application/repositories/admin-repository';
-import { Admin } from '@/domain/feedback/enterprise/admin';
+import { Admin } from '@/domain/feedback/enterprise/entities/admin';
 
 export class InMemoryAdminRepository implements AdminRepository {
   public items: Admin[] = [];

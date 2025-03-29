@@ -1,7 +1,9 @@
 import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { ProjectAttachment } from '@/domain/feedback/enterprise/project-attachment';
+import { ProjectAttachment } from '@/domain/feedback/enterprise/entities/project-attachment';
 
-export class InMemoryProjectAttachmentRepository implements ProjectAttachmentRepository {
+export class InMemoryProjectAttachmentRepository
+  implements ProjectAttachmentRepository
+{
   public items: ProjectAttachment[] = [];
   async createMany(projectAttachments: ProjectAttachment[]): Promise<void> {
     this.items.push(...projectAttachments);

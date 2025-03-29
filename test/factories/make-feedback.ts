@@ -1,9 +1,9 @@
-import { faker } from '@faker-js/faker';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import {
   Feedback,
   FeedbackProps,
-} from 'src/domain/feedback/enterprise/feedback';
+} from '@/domain/feedback/enterprise/entities/feedback';
+import { faker } from '@faker-js/faker';
+import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeFeedback(
   override: Partial<FeedbackProps> = {},
   id?: UniqueEntityID
