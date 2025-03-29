@@ -5,6 +5,8 @@ import { CreateFeedbackUseCase } from '@/domain/feedback/application/use-cases/c
 import { CreateFeedbackAnswerUseCase } from '@/domain/feedback/application/use-cases/create-feedback-answer';
 import { CreateMemberUseCase } from '@/domain/feedback/application/use-cases/create-member';
 import { CreateProjectUseCase } from '@/domain/feedback/application/use-cases/create-project';
+import { FetchRecentProjectsUseCase } from '@/domain/feedback/application/use-cases/fetch-recent-projects';
+import { GetProjectDetailsUseCase } from '@/domain/feedback/application/use-cases/get-project-details';
 import { Module } from '@nestjs/common';
 import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
@@ -15,6 +17,8 @@ import { CreateFeedbackAnswerController } from './controllers/create-feedback-an
 import { CreateFeedbackController } from './controllers/create-feedback.controller';
 import { CreateMemberAccountController } from './controllers/create-member-account.controller';
 import { CreateProjectController } from './controllers/create-project.controller';
+import { FetchRecentProjectsController } from './controllers/fetch-recent-projects.controller';
+import { GetProjectDetailsController } from './controllers/get-project-details.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -26,6 +30,8 @@ import { CreateProjectController } from './controllers/create-project.controller
     CreateProjectController,
     CreateFeedbackController,
     CreateFeedbackAnswerController,
+    FetchRecentProjectsController,
+    GetProjectDetailsController,
   ],
   providers: [
     CreateMemberUseCase,
@@ -35,6 +41,8 @@ import { CreateProjectController } from './controllers/create-project.controller
     CreateProjectUseCase,
     CreateFeedbackUseCase,
     CreateFeedbackAnswerUseCase,
+    FetchRecentProjectsUseCase,
+    GetProjectDetailsUseCase,
   ],
 })
 export class HttpModule {}

@@ -24,21 +24,17 @@ export class CreateProjectController {
     @Body(new ZodValidationPipe(createProjectBodySchema))
     body: CreateProjectBodySchema
   ) {
-    try {
-      const { sub: userId } = user;
-      console.log(userId);
+    const { sub: userId } = user;
+    console.log(userId);
 
-      const { attachmentsIds, description, repositoryLink, title } = body;
+    const { attachmentsIds, description, repositoryLink, title } = body;
 
-      await this.createProjectUseCase.execute({
-        attachmentsIds,
-        authorId: userId,
-        description,
-        repositoryLink,
-        title,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await this.createProjectUseCase.execute({
+      attachmentsIds,
+      authorId: userId,
+      description,
+      repositoryLink,
+      title,
+    });
   }
 }
