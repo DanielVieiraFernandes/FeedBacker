@@ -1,7 +1,14 @@
 import { CreateFeedbackUseCase } from '@/domain/feedback/application/use-cases/create-feedback';
+import { InvalidGradeError } from '@/domain/feedback/application/use-cases/errors/invalid-grade-error';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 
@@ -27,12 +34,17 @@ export class CreateFeedbackController {
     const { comment, grade, title } = body;
     const { sub: authorId } = user;
 
-    await this.createFeedbackUseCase.execute({
+    const result = await this.createFeedbackUseCase.execute({
       authorId,
       comment,
       grade,
       projectId,
       title,
     });
+
+    if (result.isLeft()) {
+      const error = result.value;
+      throw new BadRequestException(error.message);
+    }
   }
 }

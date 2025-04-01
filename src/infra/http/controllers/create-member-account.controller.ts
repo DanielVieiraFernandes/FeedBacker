@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
+
 const createAccountBodySchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
@@ -30,20 +31,23 @@ export class CreateMemberAccountController {
     @Body(new ZodValidationPipe(createAccountBodySchema))
     body: CreateAccountBodySchema
   ) {
-    try {
-      const { name, email, password } = body;
+    const { name, email, password } = body;
 
-      await this.createMemberUseCase.execute({
-        email,
-        name,
-        password,
-      });
-    } catch (error) {
-      if (error instanceof MemberAlreadyExistsError) {
-        throw new ConflictException(error.message);
+    const result = await this.createMemberUseCase.execute({
+      email,
+      name,
+      password,
+    });
+
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case MemberAlreadyExistsError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException(error.message);
       }
-
-      throw new BadRequestException(error.message);
     }
   }
 }

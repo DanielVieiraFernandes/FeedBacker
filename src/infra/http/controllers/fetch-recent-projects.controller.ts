@@ -1,6 +1,6 @@
 import { FetchRecentProjectsUseCase } from '@/domain/feedback/application/use-cases/fetch-recent-projects';
 import { Public } from '@/infra/auth/public';
-import { Controller, Get, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { ProjectsPresenter } from '../presenters/projects-presenter';
@@ -25,9 +25,15 @@ export class FetchRecentProjectsController {
   async handle(
     @Query('page', queryValidationPipe) page: PageQueryValidationSchema
   ) {
-    const { projects } = await this.fetchRecentProjectsUseCase.execute({
+    const result = await this.fetchRecentProjectsUseCase.execute({
       page,
     });
+
+    if (result.isLeft()) {
+      throw new BadRequestException();
+    }
+
+    const { projects } = result.value;
 
     return {
       projects: projects.map(ProjectsPresenter.toHttp),

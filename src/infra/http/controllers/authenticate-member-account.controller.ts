@@ -28,21 +28,26 @@ export class AuthenticateMemberAccountController {
     @Body(new ZodValidationPipe(authenticateBodySchema))
     body: AuthenticateBodySchema
   ) {
-    try {
-      const { email, password } = body;
+    const { email, password } = body;
 
-      const { accessToken } = await this.authenticateMemberUseCase.execute({
-        email,
-        password,
-      });
+    const result = await this.authenticateMemberUseCase.execute({
+      email,
+      password,
+    });
 
-      return { access_token: accessToken };
-    } catch (error) {
-      if (error instanceof WrongCredentialsError) {
-        throw new UnauthorizedException(error.message);
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case WrongCredentialsError:
+          throw new UnauthorizedException(error.message);
+        default:
+          throw new BadRequestException(error.message);
       }
-
-      throw new BadRequestException(error.message);
     }
+
+    const { accessToken } = result.value;
+
+    return { access_token: accessToken };
   }
 }

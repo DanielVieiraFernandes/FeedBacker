@@ -1,3 +1,4 @@
+import { AttachmentRepository } from '@/domain/feedback/application/repositories/attachment-repository';
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
 import { ProjectRepository } from '@/domain/feedback/application/repositories/project-repository';
 import { Project } from '@/domain/feedback/enterprise/entities/project';
@@ -6,12 +7,16 @@ import { Injectable } from '@nestjs/common';
 import { PrismaProjectDetailsMapper } from '../mappers/prisma-project-details-mapper';
 import { PrismaProjectMapper } from '../mappers/prisma-project-mapper';
 import { PrismaService } from '../prisma.service';
+import { PrismaAttachmentRepository } from './prisma-attachment-repository';
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    
+  ) {}
 
-  async findMany(page: number): Promise<ProjectDetails[]> {
+  async findMany(page: number): Promise<Project[]> {
     const projects = await this.prisma.project.findMany({
       orderBy: {
         createdAt: 'desc',
@@ -24,7 +29,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       skip: (page - 1) * 25,
     });
 
-    return projects.map(PrismaProjectDetailsMapper.toDomain);
+    return projects.map(PrismaProjectMapper.toDomain);
   }
 
   async create(project: Project): Promise<void> {
@@ -47,7 +52,7 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
   }
 
-  async findById({ id }: findByIdProps): Promise<ProjectDetails | null> {
+  async findDetailsById({ id }: findByIdProps): Promise<ProjectDetails | null> {
     const project = await this.prisma.project.findUnique({
       where: {
         id,
@@ -63,6 +68,24 @@ export class PrismaProjectRepository implements ProjectRepository {
     }
 
     return PrismaProjectDetailsMapper.toDomain(project);
+  }
+
+  async findById({ id }: findByIdProps): Promise<Project | null> {
+    const project = await this.prisma.project.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        attachments: true,
+        author: true,
+      },
+    });
+
+    if (!project) {
+      return null;
+    }
+
+    return PrismaProjectMapper.toDomain(project);
   }
 
   async delete(id: string): Promise<void> {

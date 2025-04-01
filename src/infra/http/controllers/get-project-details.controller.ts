@@ -1,8 +1,14 @@
 import { ProjectDoesNotExistError } from '@/domain/feedback/application/use-cases/errors/project-does-not-exist';
 import { GetProjectDetailsUseCase } from '@/domain/feedback/application/use-cases/get-project-details';
 import { Public } from '@/infra/auth/public';
-import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
-import { ProjectsPresenter } from '../presenters/projects-presenter';
+import {
+  BadRequestException,
+  ConflictException,
+  Controller,
+  Get,
+  Param,
+} from '@nestjs/common';
+import { ProjectDetailsPresenter } from '../presenters/project-details-presenter';
 
 @Controller('/projects/:projectId')
 @Public()
@@ -11,18 +17,25 @@ export class GetProjectDetailsController {
 
   @Get()
   async handle(@Param('projectId') projectId: string) {
-    try {
-      const { project } = await this.getProjectDetailsUseCase.execute({
-        projectId,
-      });
+    const result = await this.getProjectDetailsUseCase.execute({
+      projectId,
+    });
 
-      return {
-        project: ProjectsPresenter.toHttp(project),
-      };
-    } catch (error) {
-      if (error instanceof ProjectDoesNotExistError) {
-        throw new BadRequestException(error.message);
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case ProjectDoesNotExistError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException(error.message);
       }
     }
+
+    const { project } = result.value;
+
+    return {
+      project: ProjectDetailsPresenter.toHttp(project),
+    };
   }
 }

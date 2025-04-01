@@ -1,7 +1,7 @@
 import { CreateProjectUseCase } from '@/domain/feedback/application/use-cases/create-project';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
-import { Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 
@@ -29,12 +29,16 @@ export class CreateProjectController {
 
     const { attachmentsIds, description, repositoryLink, title } = body;
 
-    await this.createProjectUseCase.execute({
+    const result = await this.createProjectUseCase.execute({
       attachmentsIds,
       authorId: userId,
       description,
       repositoryLink,
       title,
     });
+
+    if (result.isLeft()) {
+      throw new BadRequestException();
+    }
   }
 }

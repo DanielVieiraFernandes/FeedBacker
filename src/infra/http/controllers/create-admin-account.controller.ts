@@ -1,5 +1,6 @@
 import { CreateAdminUseCase } from '@/domain/feedback/application/use-cases/create-admin';
 import { AdminAlreadyExistsError } from '@/domain/feedback/application/use-cases/errors/admin-already-exists';
+import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,
   Body,
@@ -10,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import { Public } from '@/infra/auth/public';
 
 const createAccountBodySchema = z.object({
   name: z.string().min(3),
@@ -31,20 +31,23 @@ export class CreateAdminAccountController {
     @Body(new ZodValidationPipe(createAccountBodySchema))
     body: CreateAccountBodySchema
   ) {
-    try {
-      const { name, email, password } = body;
+    const { name, email, password } = body;
 
-      await this.createAdminUseCase.execute({
-        email,
-        name,
-        password,
-      });
-    } catch (error) {
-      if (error instanceof AdminAlreadyExistsError) {
-        throw new ConflictException(error.message);
+    const result = await this.createAdminUseCase.execute({
+      email,
+      name,
+      password,
+    });
+
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case AdminAlreadyExistsError:
+          throw new ConflictException(error.message);
+        default:
+          throw new BadRequestException(error.message);
       }
-
-      throw new BadRequestException(error.message);
     }
   }
 }

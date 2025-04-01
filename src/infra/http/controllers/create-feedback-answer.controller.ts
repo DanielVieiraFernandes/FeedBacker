@@ -1,7 +1,13 @@
 import { CreateFeedbackAnswerUseCase } from '@/domain/feedback/application/use-cases/create-feedback-answer';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 
@@ -35,6 +41,14 @@ export class CreateFeedbackAnswerController {
     const { content } = body;
     const { sub: authorId } = user;
 
-    await this.createAnswerUseCase.execute({ authorId, feedbackId, content });
+    const result = await this.createAnswerUseCase.execute({
+      authorId,
+      feedbackId,
+      content,
+    });
+
+    if (result.isLeft()) {
+      throw new BadRequestException();
+    }
   }
 }
