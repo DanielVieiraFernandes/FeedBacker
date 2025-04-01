@@ -17,6 +17,7 @@ Content-Type: application/json
 {
     "name": "Daniel Vieira",
     "email": "daniadmin@gmail.com",
+
     "password": "123456"
 }
 
@@ -73,3 +74,12 @@ Authorization: Bearer {{authToken}}
 {
     "content": "Content"
 }
+
+###
+
+GET {{baseUrl}}/projects?=page
+
+
+###
+
+GET {{baseUrl}}/projects/23667012-07e0-4e81-9ac7-cae56490f487
