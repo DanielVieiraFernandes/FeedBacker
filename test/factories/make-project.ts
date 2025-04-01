@@ -1,4 +1,4 @@
-import { Project, ProjectProps } from '@/domain/feedback/enterprise/project';
+import { Project, ProjectProps } from '@/domain/feedback/enterprise/entities/project';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeProject(

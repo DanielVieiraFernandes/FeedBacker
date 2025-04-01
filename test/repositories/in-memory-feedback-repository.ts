@@ -15,10 +15,8 @@ export class InMemoryFeedbackRepository implements FeedbackRepository {
     this.items[findItemIndex] = feedback;
   }
 
-  async findById({ authorId, id }: findByIdProps): Promise<Feedback | null> {
-    const feedback = this.items.find(
-      item => item.id.toString() === id && item.authorId.toString() === authorId
-    );
+  async findById({ id }: findByIdProps): Promise<Feedback | null> {
+    const feedback = this.items.find(item => item.id.toString() === id);
 
     if (!feedback) {
       return null;
