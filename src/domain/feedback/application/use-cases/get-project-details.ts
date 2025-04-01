@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
-import { Project } from '../../enterprise/entities/project';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
+import { ProjectDetails } from '../../enterprise/value-objects/project-details';
 
 interface GetProjectDetailsUseCaseRequest {
   projectId: string;
@@ -11,7 +11,7 @@ interface GetProjectDetailsUseCaseRequest {
 type GetProjectDetailsUseCaseResponse = Either<
   ProjectDoesNotExistError,
   {
-    project: Project;
+    project: ProjectDetails;
   }
 >;
 
@@ -22,7 +22,7 @@ export class GetProjectDetailsUseCase {
   async execute({
     projectId,
   }: GetProjectDetailsUseCaseRequest): Promise<GetProjectDetailsUseCaseResponse> {
-    const project = await this.projectsRepository.findById({
+    const project = await this.projectsRepository.findDetailsById({
       id: projectId,
     });
 
