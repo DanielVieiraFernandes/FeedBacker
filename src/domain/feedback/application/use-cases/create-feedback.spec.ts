@@ -2,6 +2,7 @@ import { makeAdmin } from 'test/factories/make-admin';
 import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { CreateFeedbackUseCase } from './create-feedback';
+import { InvalidGradeError } from './errors/invalid-grade-error';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
 let sut: CreateFeedbackUseCase;
@@ -34,5 +35,21 @@ describe('Create Feedback', () => {
         }),
       ])
     );
+  });
+
+  it('Should not be able to create a feedback when grade is invalid', async () => {
+    const admin = makeAdmin();
+    const project = makeProject();
+
+    const result = await sut.execute({
+      authorId: admin.id.toString(),
+      projectId: project.id.toString(),
+      grade: 6,
+      comment: 'New Comment',
+      title: 'New Title',
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(InvalidGradeError);
   });
 });

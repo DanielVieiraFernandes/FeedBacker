@@ -1,3 +1,4 @@
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeFeedback } from 'test/factories/make-feedback';
 import { makeMember } from 'test/factories/make-member';
@@ -5,6 +6,7 @@ import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { EditFeedbackUseCase } from './edit-feedback';
 import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
+import { UserNotAllowedError } from './errors/user-not-allowed';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
 let sut: EditFeedbackUseCase;
@@ -16,13 +18,8 @@ describe('Edit Feedback', () => {
   });
 
   it('should be able to edit feedback', async () => {
-    const admin = makeAdmin();
     const member = makeMember({
       name: 'John Doe',
-    });
-
-    const newProject = makeProject({
-      authorId: admin.id,
     });
 
     const newFeedback = makeFeedback({
@@ -34,7 +31,7 @@ describe('Edit Feedback', () => {
 
     inMemoryFeedbackRepository.items.push(newFeedback);
 
-    const { feedback } = await sut.execute({
+    const result = await sut.execute({
       authorId: member.id.toString(),
       feedbackId: newFeedback.id.toString(),
       comment: 'Idéia bacana, simples porém útil, muito boa para praticar',
@@ -42,8 +39,12 @@ describe('Edit Feedback', () => {
       title: 'Perfeito',
     });
 
-    expect(feedback).toBeTruthy();
-    expect(feedback).toEqual(
+    if (result.isLeft()) {
+      throw new Error();
+    }
+
+    expect(result.isRight()).toBe(true);
+    expect(result.value?.feedback).toEqual(
       expect.objectContaining({
         authorId: member.id,
         comment: 'Idéia bacana, simples porém útil, muito boa para praticar',
@@ -53,24 +54,23 @@ describe('Edit Feedback', () => {
     );
   });
 
-  it('should not able to edit feedback when this not exist', async () => {
-    const admin = makeAdmin();
-
-    const newProject = makeProject({
+  it('should not able to edit feedback when another user', async () => {
+    const admin = makeAdmin({}, new UniqueEntityID('author-1'));
+    const feedback = makeFeedback({
       authorId: admin.id,
-      title: 'New Project',
-      description: 'Description',
-      repositoryLink: 'link',
     });
 
-    await expect(() =>
-      sut.execute({
-        authorId: admin.id.toString(),
-        title: 'Projeto FeedBacker',
-        comment: 'dasdas',
-        feedbackId: 'not-exist-id',
-        grade: 4,
-      })
-    ).rejects.toBeInstanceOf(FeedbackDoesNotExistError);
+    await inMemoryFeedbackRepository.create(feedback);
+
+    const result = await sut.execute({
+      authorId: 'author-2',
+      title: feedback.title,
+      comment: feedback.comment,
+      feedbackId: feedback.id.toString(),
+      grade: feedback.grade,
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(UserNotAllowedError);
   });
 });

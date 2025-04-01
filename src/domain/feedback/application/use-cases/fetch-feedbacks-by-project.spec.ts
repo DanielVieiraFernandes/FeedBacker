@@ -23,13 +23,11 @@ describe('Fetch recents feedbacks by project', () => {
       );
     }
 
-    const { feedbacks } = await sut.execute({
+    const result = await sut.execute({
       projectId: project.id.toString(),
       page: 2,
     });
 
-    console.log(feedbacks);
-
-    expect(feedbacks).toHaveLength(4);
+    expect(result.value?.feedbacks).toHaveLength(4);
   });
 });

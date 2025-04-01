@@ -1,7 +1,8 @@
+import { Either, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Injectable } from '@nestjs/common';
-import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { Project } from '../../enterprise/entities/project';
+import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { ProjectRepository } from '../repositories/project-repository';
 
 interface CreateProjectUseCaseRequest {
@@ -12,7 +13,7 @@ interface CreateProjectUseCaseRequest {
   attachmentsIds: string[];
 }
 
-interface CreateProjectUseCaseResponse {}
+type CreateProjectUseCaseResponse = Either<null, {}>;
 
 @Injectable()
 export class CreateProjectUseCase {
@@ -25,8 +26,6 @@ export class CreateProjectUseCase {
     repositoryLink,
     attachmentsIds,
   }: CreateProjectUseCaseRequest): Promise<CreateProjectUseCaseResponse> {
-    console.log('Caso de uso: ', authorId);
-
     const project = Project.create({
       authorId: new UniqueEntityID(authorId),
       description,
@@ -46,6 +45,6 @@ export class CreateProjectUseCase {
 
     await this.projectRepository.create(project);
 
-    return {};
+    return right({});
   }
 }

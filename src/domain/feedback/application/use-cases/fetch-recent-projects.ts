@@ -1,14 +1,18 @@
+import { Either, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
-import { ProjectDetails } from '../../enterprise/value-objects/project-details';
+import { Project } from '../../enterprise/entities/project';
 import { ProjectRepository } from '../repositories/project-repository';
 
 interface FetchRecentProjectsUseCaseRequest {
   page: number;
 }
 
-interface FetchRecentProjectsUseCaseResponse {
-  projects: ProjectDetails[];
-}
+type FetchRecentProjectsUseCaseResponse = Either<
+  null,
+  {
+    projects: Project[];
+  }
+>;
 
 @Injectable()
 export class FetchRecentProjectsUseCase {
@@ -19,8 +23,8 @@ export class FetchRecentProjectsUseCase {
   }: FetchRecentProjectsUseCaseRequest): Promise<FetchRecentProjectsUseCaseResponse> {
     const projects = await this.projectRepository.findMany(page);
 
-    return {
+    return right({
       projects,
-    };
+    });
   }
 }

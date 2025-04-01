@@ -41,12 +41,13 @@ describe('Create Admin', () => {
       })
     );
 
-    await expect(() =>
-      sut.execute({
-        name: 'John Doe',
-        email: 'johndoe@gmail.com',
-        password: '123456',
-      })
-    ).rejects.toBeInstanceOf(AdminAlreadyExistsError);
+    const result = await sut.execute({
+      name: 'John Doe',
+      email: 'johndoe@gmail.com',
+      password: '123456',
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(AdminAlreadyExistsError);
   });
 });

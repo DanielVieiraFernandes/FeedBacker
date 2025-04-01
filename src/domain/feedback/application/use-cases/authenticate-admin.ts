@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { Encrypter } from '../cryptography/encrypter';
 import { HashComparer } from '../cryptography/hash-comparer';
@@ -9,9 +10,12 @@ interface AuthenticateAdminUseCaseRequest {
   password: string;
 }
 
-interface AuthenticateAdminUseCaseResponse {
-  accessToken: string;
-}
+type AuthenticateAdminUseCaseResponse = Either<
+  WrongCredentialsError,
+  {
+    accessToken: string;
+  }
+>;
 
 @Injectable()
 export class AuthenticateAdminUseCase {
@@ -28,7 +32,7 @@ export class AuthenticateAdminUseCase {
     const admin = await this.adminRepository.findByEmail(email);
 
     if (!admin) {
-      throw new WrongCredentialsError();
+      return left(new WrongCredentialsError());
     }
 
     const isPasswordValid = await this.hashComparer.compare(
@@ -37,7 +41,7 @@ export class AuthenticateAdminUseCase {
     );
 
     if (!isPasswordValid) {
-      throw new WrongCredentialsError();
+      return left(new WrongCredentialsError());
     }
 
     console.log(admin.id.toString());
@@ -46,8 +50,8 @@ export class AuthenticateAdminUseCase {
       sub: admin.id.toString(),
     });
 
-    return {
+    return right({
       accessToken,
-    };
+    });
   }
 }

@@ -41,12 +41,13 @@ describe('Create Member', () => {
       })
     );
 
-    await expect(() =>
-      sut.execute({
-        name: 'John Doe',
-        email: 'johndoe@gmail.com',
-        password: '123456',
-      })
-    ).rejects.toBeInstanceOf(MemberAlreadyExistsError);
+    const result = await sut.execute({
+      name: 'John Doe',
+      email: 'johndoe@gmail.com',
+      password: '123456',
+    });
+
+    expect(result.isLeft()).toBeTruthy();
+    expect(result.value).toBeInstanceOf(MemberAlreadyExistsError);
   });
 });

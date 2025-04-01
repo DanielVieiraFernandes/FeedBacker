@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { Member } from '../../enterprise/entities/member';
 import { HashGenerator } from '../cryptography/hash-generator';
@@ -10,7 +11,7 @@ interface CreateMemberUseCaseRequest {
   password: string;
 }
 
-interface CreateMemberUseCaseResponse {}
+type CreateMemberUseCaseResponse = Either<MemberAlreadyExistsError, {}>;
 
 @Injectable()
 export class CreateMemberUseCase {
@@ -27,7 +28,7 @@ export class CreateMemberUseCase {
     const member = await this.memberRepository.findByEmail(email);
 
     if (member) {
-      throw new MemberAlreadyExistsError(email);
+      return left(new MemberAlreadyExistsError(email));
     }
 
     const passwordHashed = await this.hashGenerator.hash(password);
@@ -40,6 +41,6 @@ export class CreateMemberUseCase {
 
     await this.memberRepository.create(data);
 
-    return {};
+    return right({});
   }
 }

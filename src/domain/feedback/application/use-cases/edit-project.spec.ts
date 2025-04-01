@@ -31,7 +31,7 @@ describe('Edit project', () => {
 
     inMemoryProjectRepository.items.push(newProject);
 
-    const { project } = await sut.execute({
+    const result = await sut.execute({
       authorId: admin.id.toString(),
       title: 'Projeto FeedBacker',
       description: 'projeto que conecta a comunidade de desenvolvedores',
@@ -39,8 +39,12 @@ describe('Edit project', () => {
       projectId: newProject.id.toString(),
     });
 
-    expect(project).toBeTruthy();
-    expect(project).toEqual(
+    if (result.isLeft()) {
+      throw new Error(result.value.message);
+    }
+
+    expect(result.isRight()).toBe(true);
+    expect(result.value?.project).toEqual(
       expect.objectContaining({
         authorId: admin.id,
         title: 'Projeto FeedBacker',
@@ -60,14 +64,15 @@ describe('Edit project', () => {
       repositoryLink: 'link',
     });
 
-    await expect(() =>
-      sut.execute({
-        authorId: admin.id.toString(),
-        title: 'Projeto FeedBacker',
-        description: 'projeto que conecta a comunidade de desenvolvedores',
-        repositoryLink: 'http://feedbacker.git',
-        projectId: newProject.id.toString(),
-      })
-    ).rejects.toBeInstanceOf(ProjectDoesNotExistError);
+    const result = await sut.execute({
+      authorId: admin.id.toString(),
+      title: 'Projeto FeedBacker',
+      description: 'projeto que conecta a comunidade de desenvolvedores',
+      repositoryLink: 'http://feedbacker.git',
+      projectId: newProject.id.toString(),
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(ProjectDoesNotExistError);
   });
 });

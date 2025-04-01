@@ -1,7 +1,9 @@
+import { Either, left, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Injectable } from '@nestjs/common';
 import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
+import { InvalidGradeError } from './errors/invalid-grade-error';
 
 interface CreateFeedbackUseCaseRequest {
   authorId: string;
@@ -11,7 +13,7 @@ interface CreateFeedbackUseCaseRequest {
   title: string;
 }
 
-interface CreateFeedbackUseCaseResponse {}
+type CreateFeedbackUseCaseResponse = Either<InvalidGradeError, {}>;
 
 @Injectable()
 export class CreateFeedbackUseCase {
@@ -25,7 +27,7 @@ export class CreateFeedbackUseCase {
     title,
   }: CreateFeedbackUseCaseRequest): Promise<CreateFeedbackUseCaseResponse> {
     if (grade < 1 || grade > 5) {
-      throw new Error();
+      return left(new InvalidGradeError());
     }
 
     const feedback = Feedback.create({
@@ -38,6 +40,6 @@ export class CreateFeedbackUseCase {
 
     await this.feedbackRepository.create(feedback);
 
-    return {};
+    return right({});
   }
 }

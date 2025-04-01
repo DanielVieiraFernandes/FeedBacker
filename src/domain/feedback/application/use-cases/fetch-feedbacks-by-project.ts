@@ -1,3 +1,4 @@
+import { Either, right } from '@/core/either';
 import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 
@@ -6,9 +7,12 @@ interface FetchFeedbacksByProjectUseCaseRequest {
   page: number;
 }
 
-interface FetchFeedbacksByProjectUseCaseResponse {
-  feedbacks: Feedback[];
-}
+type FetchFeedbacksByProjectUseCaseResponse = Either<
+  null,
+  {
+    feedbacks: Feedback[];
+  }
+>;
 
 export class FetchFeedbacksByProjectUseCase {
   constructor(private feedbackRepository: FeedbackRepository) {}
@@ -22,8 +26,8 @@ export class FetchFeedbacksByProjectUseCase {
       page
     );
 
-    return {
+    return right({
       feedbacks,
-    };
+    });
   }
 }

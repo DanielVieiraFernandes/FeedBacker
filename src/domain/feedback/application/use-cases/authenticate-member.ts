@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { Encrypter } from '../cryptography/encrypter';
 import { HashComparer } from '../cryptography/hash-comparer';
@@ -9,9 +10,12 @@ interface AuthenticateMemberUseCaseRequest {
   password: string;
 }
 
-interface AuthenticateMemberUseCaseResponse {
-  accessToken: string;
-}
+type AuthenticateMemberUseCaseResponse = Either<
+  WrongCredentialsError,
+  {
+    accessToken: string;
+  }
+>;
 
 @Injectable()
 export class AuthenticateMemberUseCase {
@@ -28,7 +32,7 @@ export class AuthenticateMemberUseCase {
     const member = await this.memberRepository.findByEmail(email);
 
     if (!member) {
-      throw new WrongCredentialsError();
+      return left(new WrongCredentialsError());
     }
 
     const isPasswordValid = await this.hashComparer.compare(
@@ -37,15 +41,15 @@ export class AuthenticateMemberUseCase {
     );
 
     if (!isPasswordValid) {
-      throw new WrongCredentialsError();
+      return left(new WrongCredentialsError());
     }
 
     const accessToken = await this.encrypter.encrypt({
       sub: member.id.toString(),
     });
 
-    return {
+    return right({
       accessToken,
-    };
+    });
   }
 }

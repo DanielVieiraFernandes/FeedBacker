@@ -1,5 +1,6 @@
+import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
-import { ProjectDetails } from '../../enterprise/value-objects/project-details';
+import { Project } from '../../enterprise/entities/project';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
 
@@ -7,9 +8,12 @@ interface GetProjectDetailsUseCaseRequest {
   projectId: string;
 }
 
-interface GetProjectDetailsUseCaseResponse {
-  project: ProjectDetails;
-}
+type GetProjectDetailsUseCaseResponse = Either<
+  ProjectDoesNotExistError,
+  {
+    project: Project;
+  }
+>;
 
 @Injectable()
 export class GetProjectDetailsUseCase {
@@ -23,11 +27,11 @@ export class GetProjectDetailsUseCase {
     });
 
     if (!project) {
-      throw new ProjectDoesNotExistError();
+      return left(new ProjectDoesNotExistError());
     }
 
-    return {
+    return right({
       project,
-    };
+    });
   }
 }

@@ -30,20 +30,8 @@ describe('Fetch recents projects', () => {
       inMemoryProjectRepository.items.push(project);
     }
 
-    const { projects } = await sut.execute({ page: 2 });
+    const result = await sut.execute({ page: 2 });
 
-    console.log(projects);
-
-    expect(projects).toHaveLength(2);
-    // expect(projects).toEqual(
-    //   expect.arrayContaining([
-    //     expect.objectContaining({
-    //       title: `Project-number-3`,
-    //     }),
-    //     expect.objectContaining({
-    //       title: `Project-number-4`,
-    //     }),
-    //   ])
-    // );
+    expect(result.value?.projects).toHaveLength(2);
   });
 });

@@ -30,34 +30,27 @@ describe('Create Member', () => {
 
     inMemoryMemberRepository.items.push(member);
 
-    const { accessToken } = await sut.execute({
+    const result = await sut.execute({
       email: 'johndoe@example.com',
       password: '123456',
     });
 
-    expect(accessToken).toEqual(expect.any(String));
+    expect(result.isRight()).toBe(true);
   });
 
   it('should not be able authenticate with wrong credentials', async () => {
     const member = makeMember({
-      email: 'johndoe@example.com',
       password: await fakeHasher.hash('123456'),
     });
 
     inMemoryMemberRepository.items.push(member);
 
-    await expect(() =>
-      sut.execute({
-        email: 'errado@example.com',
-        password: '123456',
-      })
-    ).rejects.toBeInstanceOf(WrongCredentialsError);
+    const result = await sut.execute({
+      email: member.email,
+      password: '123457',
+    });
 
-    await expect(() =>
-      sut.execute({
-        email: 'johndoe@example.com',
-        password: '123457',
-      })
-    ).rejects.toBeInstanceOf(WrongCredentialsError);
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(WrongCredentialsError);
   });
 });

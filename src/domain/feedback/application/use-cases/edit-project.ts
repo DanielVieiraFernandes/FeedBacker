@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Project } from '../../enterprise/entities/project';
 import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { ProjectRepository } from '../repositories/project-repository';
@@ -12,9 +13,12 @@ interface EditProjectUseCaseRequest {
   repositoryLink: string;
 }
 
-interface EditProjectUseCaseResponse {
-  project: Project;
-}
+type EditProjectUseCaseResponse = Either<
+  ProjectDoesNotExistError | UserNotAllowedError,
+  {
+    project: Project;
+  }
+>;
 
 export class EditProjectUseCase {
   constructor(private projectRepository: ProjectRepository) {}
@@ -31,36 +35,23 @@ export class EditProjectUseCase {
     });
 
     if (!project) {
-      throw new ProjectDoesNotExistError();
+      return left(new ProjectDoesNotExistError());
     }
+
+    console.log('project ', project);
 
     if (authorId !== project.authorId.toString()) {
-      throw new UserNotAllowedError();
+      return left(new UserNotAllowedError());
     }
 
-    const projectToDomain = Project.create({
-      authorId: project.authorId,
-      description,
-      repositoryLink,
-      title,
-      attachments: project.attachments.map(attachment =>
-        ProjectAttachment.create({
-          attachmentId: attachment.id.toString(),
-          projectId: project.projectId.toString(),
-        })
-      ),
-      createdAt: project.createdAt,
-      updatedAt: project.updatedAt,
+    project.title = title;
+    project.description = description;
+    project.repositoryLink = repositoryLink;
+
+    await this.projectRepository.save(project);
+
+    return right({
+      project,
     });
-
-    projectToDomain.title = title;
-    projectToDomain.description = description;
-    projectToDomain.repositoryLink = repositoryLink;
-
-    await this.projectRepository.save(projectToDomain);
-
-    return {
-      project: projectToDomain,
-    };
   }
 }

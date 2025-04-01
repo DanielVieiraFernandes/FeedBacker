@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
 import { UserNotAllowedError } from './errors/user-not-allowed';
@@ -7,7 +8,10 @@ interface DeleteProjectUseCaseRequest {
   projectId: string;
 }
 
-interface DeleteProjectUseCaseResponse {}
+type DeleteProjectUseCaseResponse = Either<
+  ProjectDoesNotExistError | UserNotAllowedError,
+  {}
+>;
 
 export class DeleteProjectUseCase {
   constructor(private projectRepository: ProjectRepository) {}
@@ -21,15 +25,15 @@ export class DeleteProjectUseCase {
     });
 
     if (!project) {
-      throw new ProjectDoesNotExistError();
+      return left(new ProjectDoesNotExistError());
     }
 
     if (authorId !== project.authorId.toString()) {
-      throw new UserNotAllowedError();
+      return left(new UserNotAllowedError());
     }
 
-    await this.projectRepository.delete(project.projectId.toString());
+    await this.projectRepository.delete(project.id.toString());
 
-    return {};
+    return right({});
   }
 }

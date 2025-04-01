@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
@@ -11,9 +12,12 @@ interface EditFeedbackUseCaseRequest {
   grade: number;
 }
 
-interface EditFeedbackUseCaseResponse {
-  feedback: Feedback;
-}
+type EditFeedbackUseCaseResponse = Either<
+  FeedbackDoesNotExistError | UserNotAllowedError,
+  {
+    feedback: Feedback;
+  }
+>;
 
 export class EditFeedbackUseCase {
   constructor(private feedbackRepository: FeedbackRepository) {}
@@ -30,11 +34,11 @@ export class EditFeedbackUseCase {
     });
 
     if (!feedback) {
-      throw new FeedbackDoesNotExistError();
+      return left(new FeedbackDoesNotExistError());
     }
 
     if (authorId !== feedback.authorId.toString()) {
-      throw new UserNotAllowedError();
+      return left(new UserNotAllowedError());
     }
 
     feedback.title = title;
@@ -43,8 +47,8 @@ export class EditFeedbackUseCase {
 
     await this.feedbackRepository.save(feedback);
 
-    return {
+    return right({
       feedback,
-    };
+    });
   }
 }

@@ -24,13 +24,13 @@ describe('Fetch recents answers by feedack', () => {
       );
     }
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       feedbackId: feedback.id.toString(),
       page: 2,
     });
 
-    expect(answers).toHaveLength(2);
-    expect(answers).toEqual(
+    expect(result.value?.answers).toHaveLength(2);
+    expect(result.value?.answers).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           feedbackId: feedback.id,

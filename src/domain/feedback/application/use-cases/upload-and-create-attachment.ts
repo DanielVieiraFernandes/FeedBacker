@@ -1,3 +1,4 @@
+import { Either, left, right } from '@/core/either';
 import { Attachment } from '../../enterprise/entities/attachment';
 import { AttachmentRepository } from '../repositories/attachment-repository';
 import { Uploader } from '../storage/uploader';
@@ -9,9 +10,12 @@ interface UploadAndCreateAttachmentUseCaseRequest {
   body: Buffer;
 }
 
-interface UploadAndCreateAttachmentUseCaseResponse {
-  attachment: Attachment;
-}
+type UploadAndCreateAttachmentUseCaseResponse = Either<
+  InvalidAttachmentTypeError,
+  {
+    attachment: Attachment;
+  }
+>;
 
 export class UploadAndCreateAttachmentUseCase {
   constructor(
@@ -25,7 +29,7 @@ export class UploadAndCreateAttachmentUseCase {
     fileType,
   }: UploadAndCreateAttachmentUseCaseRequest): Promise<UploadAndCreateAttachmentUseCaseResponse> {
     if (!/^(image\/(jpeg|png))$|^application\/pdf$/.test(fileType)) {
-      throw new InvalidAttachmentTypeError(fileType);
+      return left(new InvalidAttachmentTypeError(fileType));
     }
 
     const { url } = await this.uploader.upload({ body, fileName, fileType });
@@ -37,8 +41,8 @@ export class UploadAndCreateAttachmentUseCase {
 
     await this.attachmentRepository.create(attachment);
 
-    return {
+    return right({
       attachment,
-    };
+    });
   }
 }

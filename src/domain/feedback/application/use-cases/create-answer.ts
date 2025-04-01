@@ -1,26 +1,29 @@
 import { Either, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Injectable } from '@nestjs/common';
 import { Answer } from '../../enterprise/entities/answer';
 import { AnswerRepository } from '../repositories/answer-repository';
 
-interface CreateFeedbackAnswerUseCaseRequest {
+interface CreateAnswerUseCaseRequest {
   authorId: string;
   feedbackId: string;
   content: string;
 }
 
-type CreateFeedbackAnswerUseCaseResponse = Either<null, {}>;
+type CreateAnswerUseCaseResponse = Either<
+  null,
+  {
+    answer: Answer;
+  }
+>;
 
-@Injectable()
-export class CreateFeedbackAnswerUseCase {
+export class CreateAnswerUseCase {
   constructor(private answerRepository: AnswerRepository) {}
 
   async execute({
     authorId,
-    content,
     feedbackId,
-  }: CreateFeedbackAnswerUseCaseRequest): Promise<CreateFeedbackAnswerUseCaseResponse> {
+    content,
+  }: CreateAnswerUseCaseRequest): Promise<CreateAnswerUseCaseResponse> {
     const answer = Answer.create({
       authorId: new UniqueEntityID(authorId),
       feedbackId: new UniqueEntityID(feedbackId),
@@ -29,6 +32,8 @@ export class CreateFeedbackAnswerUseCase {
 
     await this.answerRepository.create(answer);
 
-    return right({});
+    return right({
+      answer,
+    });
   }
 }
