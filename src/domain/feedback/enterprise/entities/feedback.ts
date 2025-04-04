@@ -47,6 +47,7 @@ export class Feedback extends Entity<FeedbackProps> {
     }
 
     this.props.grade = grade;
+    this.touch();
   }
 
   set title(title: string | null) {
@@ -55,6 +56,7 @@ export class Feedback extends Entity<FeedbackProps> {
     }
 
     this.props.title = title;
+    this.touch();
   }
 
   set comment(comment: string | null) {
@@ -63,6 +65,11 @@ export class Feedback extends Entity<FeedbackProps> {
     }
 
     this.props.comment = comment;
+    this.touch();
+  }
+
+  touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(

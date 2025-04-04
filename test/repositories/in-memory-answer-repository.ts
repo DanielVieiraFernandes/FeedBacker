@@ -7,11 +7,21 @@ export class InMemoryAnswerRepository implements AnswerRepository {
   async create(answer: Answer): Promise<void> {
     this.items.push(answer);
   }
-  save(answer: Answer): Promise<void> {
-    throw new Error('Method not implemented.');
+  async save(answer: Answer): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id === answer.id);
+
+    if (itemIndex > -1) {
+      this.items[itemIndex] = answer;
+    }
   }
-  findById(id: string): Promise<Answer | null> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<Answer | null> {
+    const answer = this.items.find(item => item.id.toString() === id);
+
+    if (!answer) {
+      return null;
+    }
+
+    return answer;
   }
 
   async findManyByFeedbackId(
@@ -26,6 +36,10 @@ export class InMemoryAnswerRepository implements AnswerRepository {
   }
 
   async delete(answer: Answer): Promise<void> {
-    throw new Error('Method not implemented.');
+    const itemIndex = this.items.findIndex(item => item.id === answer.id);
+
+    if (itemIndex > -1) {
+      this.items.splice(itemIndex, 1);
+    }
   }
 }

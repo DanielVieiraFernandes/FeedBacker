@@ -31,6 +31,25 @@ export class Admin extends Entity<AdminProps> {
     return this.props.updatedAt;
   }
 
+  set name(name: string) {
+    this.props.name = name;
+    this.touch();
+  }
+
+  set email(email: string) {
+    this.props.email = email;
+    this.touch();
+  }
+
+  set password(password: string) {
+    this.props.password = password;
+    this.touch();
+  }
+
+  touch() {
+    this.props.updatedAt = new Date();
+  }
+
   static create(props: Optional<AdminProps, 'createdAt'>, id?: UniqueEntityID) {
     const admin = new Admin(
       {

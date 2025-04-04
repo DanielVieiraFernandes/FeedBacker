@@ -13,14 +13,17 @@ export interface MemberProps {
 export class Member extends Entity<MemberProps> {
   set name(name: string) {
     this._props.name = name;
+    this.touch();
   }
 
   set email(email: string) {
     this._props.email = email;
+    this.touch();
   }
 
   set password(password: string) {
     this._props.password = password;
+    this.touch();
   }
 
   get name() {
@@ -33,6 +36,10 @@ export class Member extends Entity<MemberProps> {
 
   get password() {
     return this.props.password;
+  }
+
+  touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(
