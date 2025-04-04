@@ -3,6 +3,7 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Injectable } from '@nestjs/common';
 import { Project } from '../../enterprise/entities/project';
 import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
+import { ProjectAttachmentList } from '../../enterprise/entities/project-attachment-list';
 import { ProjectRepository } from '../repositories/project-repository';
 
 interface CreateProjectUseCaseRequest {
@@ -31,17 +32,16 @@ export class CreateProjectUseCase {
       description,
       repositoryLink,
       title,
-      attachments: [],
     });
 
     const projectAttachments = attachmentsIds.map(attachmentId => {
       return ProjectAttachment.create({
-        attachmentId,
-        projectId: project.id.toString(),
+        attachmentId: new UniqueEntityID(attachmentId),
+        projectId: project.id,
       });
     });
 
-    project.attachments = projectAttachments;
+    project.attachments = new ProjectAttachmentList(projectAttachments);
 
     await this.projectRepository.create(project);
 

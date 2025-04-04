@@ -1,17 +1,17 @@
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeProject } from 'test/factories/make-project';
-import { InMemoryProjectAttachmentRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
+import { InMemoryProjectAttachmentsRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
 import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { FetchRecentProjectsUseCase } from './fetch-recent-projects';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
-let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentRepository;
+let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentsRepository;
 let sut: FetchRecentProjectsUseCase;
 
 describe('Fetch recents projects', () => {
   beforeEach(() => {
     inMemoryProjectAttachmentRepository =
-      new InMemoryProjectAttachmentRepository();
+      new InMemoryProjectAttachmentsRepository();
     inMemoryProjectRepository = new InMemoryProjectRepository(
       inMemoryProjectAttachmentRepository
     );

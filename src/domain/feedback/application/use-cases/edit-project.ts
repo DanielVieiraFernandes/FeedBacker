@@ -1,6 +1,9 @@
 import { Either, left, right } from '@/core/either';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Project } from '../../enterprise/entities/project';
 import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
+import { ProjectAttachmentList } from '../../enterprise/entities/project-attachment-list';
+import { ProjectAttachmentsRepository } from '../repositories/project-attachment-repository';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
 import { UserNotAllowedError } from './errors/user-not-allowed';
@@ -11,6 +14,7 @@ interface EditProjectUseCaseRequest {
   title: string;
   description: string;
   repositoryLink: string;
+  attachmentsIds: string[];
 }
 
 type EditProjectUseCaseResponse = Either<
@@ -21,7 +25,10 @@ type EditProjectUseCaseResponse = Either<
 >;
 
 export class EditProjectUseCase {
-  constructor(private projectRepository: ProjectRepository) {}
+  constructor(
+    private projectRepository: ProjectRepository,
+    private projectAttachmentsRepository: ProjectAttachmentsRepository
+  ) {}
 
   async execute({
     title,
@@ -29,6 +36,7 @@ export class EditProjectUseCase {
     description,
     repositoryLink,
     projectId,
+    attachmentsIds,
   }: EditProjectUseCaseRequest): Promise<EditProjectUseCaseResponse> {
     const project = await this.projectRepository.findById({
       id: projectId,
@@ -38,12 +46,29 @@ export class EditProjectUseCase {
       return left(new ProjectDoesNotExistError());
     }
 
-    console.log('project ', project);
-
     if (authorId !== project.authorId.toString()) {
       return left(new UserNotAllowedError());
     }
 
+    const currentProjectAttachments =
+      await this.projectAttachmentsRepository.findManyByProjectId(
+        project.id.toString()
+      );
+
+    const projectAttachmentList = new ProjectAttachmentList(
+      currentProjectAttachments
+    );
+
+    const newProjectAttachments = attachmentsIds.map(attachmentId => {
+      return ProjectAttachment.create({
+        attachmentId: new UniqueEntityID(attachmentId),
+        projectId: project.id,
+      });
+    });
+
+    projectAttachmentList.update(newProjectAttachments);
+
+    project.attachments = projectAttachmentList;
     project.title = title;
     project.description = description;
     project.repositoryLink = repositoryLink;

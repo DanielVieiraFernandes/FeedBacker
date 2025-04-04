@@ -7,9 +7,9 @@ import { UserNotAllowedError } from './errors/user-not-allowed';
 interface EditFeedbackUseCaseRequest {
   authorId: string;
   feedbackId: string;
-  title: string;
-  comment: string;
-  grade: number;
+  title: string | null;
+  comment: string | null;
+  grade: number | null;
 }
 
 type EditFeedbackUseCaseResponse = Either<

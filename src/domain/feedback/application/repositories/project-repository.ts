@@ -10,5 +10,5 @@ export abstract class ProjectRepository {
     param: findByIdProps
   ): Promise<ProjectDetails | null>;
   abstract findMany(page: number): Promise<Project[]>;
-  abstract delete(id: string): Promise<void>;
+  abstract delete(project: Project): Promise<void>;
 }

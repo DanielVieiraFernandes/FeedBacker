@@ -1,19 +1,20 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeProject } from 'test/factories/make-project';
-import { InMemoryProjectAttachmentRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
+import { makeProjectAttachment } from 'test/factories/make-project-attachment';
+import { InMemoryProjectAttachmentsRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
 import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { DeleteProjectUseCase } from './delete-project';
 import { UserNotAllowedError } from './errors/user-not-allowed';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
-let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentRepository;
+let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentsRepository;
 let sut: DeleteProjectUseCase;
 
 describe('Delete project', () => {
   beforeEach(() => {
     inMemoryProjectAttachmentRepository =
-      new InMemoryProjectAttachmentRepository();
+      new InMemoryProjectAttachmentsRepository();
     inMemoryProjectRepository = new InMemoryProjectRepository(
       inMemoryProjectAttachmentRepository
     );
@@ -21,20 +22,25 @@ describe('Delete project', () => {
   });
 
   it('should be able to delete a project', async () => {
-    const admin = makeAdmin();
-
     const newProject = makeProject({
-      authorId: admin.id,
+      authorId: new UniqueEntityID('author-1'),
     });
 
     inMemoryProjectRepository.items.push(newProject);
 
+    inMemoryProjectAttachmentRepository.items.push(
+      makeProjectAttachment({
+        projectId: newProject.id,
+      })
+    );
+
     await sut.execute({
-      authorId: admin.id.toString(),
+      authorId: 'author-1',
       projectId: newProject.id.toString(),
     });
 
     expect(inMemoryProjectRepository.items).toHaveLength(0);
+    expect(inMemoryProjectAttachmentRepository.items).toHaveLength(0);
   });
 
   it('should not be able to delete a project when user another from project', async () => {

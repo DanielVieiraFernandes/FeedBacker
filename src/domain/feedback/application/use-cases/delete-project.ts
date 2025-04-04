@@ -32,7 +32,7 @@ export class DeleteProjectUseCase {
       return left(new UserNotAllowedError());
     }
 
-    await this.projectRepository.delete(project.id.toString());
+    await this.projectRepository.delete(project);
 
     return right({});
   }

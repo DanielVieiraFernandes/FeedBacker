@@ -1,16 +1,16 @@
 import { makeAdmin } from 'test/factories/make-admin';
-import { InMemoryProjectAttachmentRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
+import { InMemoryProjectAttachmentsRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
 import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { CreateProjectUseCase } from './create-project';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
-let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentRepository;
+let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentsRepository;
 let sut: CreateProjectUseCase;
 
 describe('Create project', () => {
   beforeEach(() => {
     inMemoryProjectAttachmentRepository =
-      new InMemoryProjectAttachmentRepository();
+      new InMemoryProjectAttachmentsRepository();
     inMemoryProjectRepository = new InMemoryProjectRepository(
       inMemoryProjectAttachmentRepository
     );
@@ -25,7 +25,7 @@ describe('Create project', () => {
       title: 'New Project',
       description: 'description',
       repositoryLink: 'link',
-      attachmentsIds: [],
+      attachmentsIds: ['1', '2'],
     });
 
     expect(inMemoryProjectRepository.items).toHaveLength(1);
