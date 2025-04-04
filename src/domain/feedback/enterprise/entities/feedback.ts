@@ -21,15 +21,15 @@ export class Feedback extends Entity<FeedbackProps> {
     return this.props.projectId;
   }
 
-  get grade() {
+  get grade(): number {
     return this.props.grade;
   }
 
-  get title() {
+  get title(): string {
     return this.props.title;
   }
 
-  get comment() {
+  get comment(): string {
     return this.props.comment;
   }
 
@@ -41,15 +41,27 @@ export class Feedback extends Entity<FeedbackProps> {
     return this.props.updatedAt;
   }
 
-  set grade(grade: number) {
+  set grade(grade: number | null) {
+    if (grade === null) {
+      return;
+    }
+
     this.props.grade = grade;
   }
 
-  set title(title: string) {
+  set title(title: string | null) {
+    if (title === null) {
+      return;
+    }
+
     this.props.title = title;
   }
 
-  set comment(comment: string) {
+  set comment(comment: string | null) {
+    if (comment === null) {
+      return;
+    }
+
     this.props.comment = comment;
   }
 

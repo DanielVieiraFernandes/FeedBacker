@@ -2,8 +2,8 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 
 export interface ProjectAttachmentProps {
-  projectId: string;
-  attachmentId: string;
+  projectId: UniqueEntityID;
+  attachmentId: UniqueEntityID;
 }
 
 export class ProjectAttachment extends Entity<ProjectAttachmentProps> {

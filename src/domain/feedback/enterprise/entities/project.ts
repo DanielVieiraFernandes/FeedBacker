@@ -2,13 +2,14 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { ProjectAttachment } from './project-attachment';
+import { ProjectAttachmentList } from './project-attachment-list';
 
 export interface ProjectProps {
   authorId: UniqueEntityID;
   title: string;
   description: string;
   repositoryLink: string;
-  attachments: ProjectAttachment[];
+  attachments: ProjectAttachmentList;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -18,15 +19,15 @@ export class Project extends Entity<ProjectProps> {
     return this.props.authorId;
   }
 
-  get repositoryLink() {
+  get repositoryLink(): string {
     return this.props.repositoryLink;
   }
 
-  get title() {
+  get title(): string {
     return this.props.title;
   }
 
-  get description() {
+  get description(): string {
     return this.props.description;
   }
 
@@ -42,30 +43,47 @@ export class Project extends Entity<ProjectProps> {
     return this.props.attachments;
   }
 
-  set attachments(attachments: ProjectAttachment[]) {
+  set attachments(attachments: ProjectAttachmentList) {
     this.props.attachments = attachments;
+    this.touch();
   }
 
-  set repositoryLink(repositoryLink: string) {
+  set repositoryLink(repositoryLink: string | null) {
+    if (repositoryLink === null) return;
+
     this.props.repositoryLink = repositoryLink;
+    this.touch();
   }
 
-  set title(title: string) {
+  set title(title: string | null) {
+    if (title === null) return;
+
     this.props.title = title;
+    this.touch();
   }
 
-  set description(description: string) {
+  set description(description: string | null) {
+    if (description === null) {
+      return;
+    }
+
     this.props.description = description;
+    this.touch();
+  }
+
+  touch() {
+    this.props.updatedAt = new Date();
   }
 
   static create(
-    props: Optional<ProjectProps, 'createdAt'>,
+    props: Optional<ProjectProps, 'createdAt' | 'attachments'>,
     id?: UniqueEntityID
   ) {
     const project = new Project(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        attachments: props.attachments ?? new ProjectAttachmentList(),
       },
       id
     );

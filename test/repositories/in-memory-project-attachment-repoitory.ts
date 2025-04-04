@@ -1,17 +1,23 @@
-import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
+import { ProjectAttachmentsRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
 import { ProjectAttachment } from '@/domain/feedback/enterprise/entities/project-attachment';
 
-export class InMemoryProjectAttachmentRepository
-  implements ProjectAttachmentRepository
+export class InMemoryProjectAttachmentsRepository
+  implements ProjectAttachmentsRepository
 {
   public items: ProjectAttachment[] = [];
-  async createMany(projectAttachments: ProjectAttachment[]): Promise<void> {
-    this.items.push(...projectAttachments);
-  }
-  async findByProjectId(projectId: string): Promise<ProjectAttachment[]> {
-    throw new Error('Method not implemented.');
+
+  async findManyByProjectId(projectId: string): Promise<ProjectAttachment[]> {
+    const projectAttachments = this.items.filter(
+      item => item.id.toString() === projectId
+    );
+
+    return projectAttachments;
   }
   async deleteManyByProjectId(projectId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    const projectAttachments = this.items.filter(
+      item => item.projectId.toString() !== projectId
+    );
+
+    this.items = projectAttachments;
   }
 }

@@ -1,4 +1,8 @@
-import { Project, ProjectProps } from '@/domain/feedback/enterprise/entities/project';
+import {
+  Project,
+  ProjectProps,
+} from '@/domain/feedback/enterprise/entities/project';
+import { ProjectAttachmentList } from '@/domain/feedback/enterprise/entities/project-attachment-list';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeProject(
@@ -13,7 +17,7 @@ export function makeProject(
       repositoryLink: faker.internet.url(),
       updatedAt: faker.date.anytime(),
       createdAt: new Date(),
-      attachments: [],
+      attachments: new ProjectAttachmentList(),
       ...override,
     },
     id

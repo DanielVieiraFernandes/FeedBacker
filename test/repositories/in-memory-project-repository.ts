@@ -1,5 +1,5 @@
 import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
-import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
+import { ProjectAttachmentsRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
 import { Attachment } from '@/domain/feedback/enterprise/entities/attachment';
 import { Project } from '@/domain/feedback/enterprise/entities/project';
 import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
@@ -8,11 +8,14 @@ import { ProjectRepository } from 'src/domain/feedback/application/repositories/
 export class InMemoryProjectRepository implements ProjectRepository {
   public items: Project[] = [];
 
-  constructor(private projectAttachment: ProjectAttachmentRepository) {}
+  constructor(private projectAttachment: ProjectAttachmentsRepository) {}
+
+  findDetailsById(param: findByIdProps): Promise<ProjectDetails | null> {
+    throw new Error('Method not implemented.');
+  }
+
   async create(project: Project) {
     this.items.push(project);
-
-    await this.projectAttachment.createMany(project.attachments);
   }
 
   async save(project: Project): Promise<void> {
@@ -39,11 +42,13 @@ export class InMemoryProjectRepository implements ProjectRepository {
     return projects;
   }
 
-  async delete(id: string): Promise<void> {
-    const project = this.items.findIndex(item => item.id.toString() === id);
+  async delete(project: Project): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id === project.id);
 
-    if (project >= 0) {
-      this.items.splice(project, 1);
+    if (itemIndex >= 0) {
+      this.items.splice(itemIndex, 1);
     }
+
+    this.projectAttachment.deleteManyByProjectId(project.id.toString());
   }
 }
