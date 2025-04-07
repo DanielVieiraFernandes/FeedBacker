@@ -1,7 +1,6 @@
-import { Entity } from '@/core/entities/entity';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { ProjectAttachment } from './project-attachment';
 import { ProjectAttachmentList } from './project-attachment-list';
 
 export interface ProjectProps {
@@ -14,7 +13,7 @@ export interface ProjectProps {
   updatedAt?: Date | null;
 }
 
-export class Project extends Entity<ProjectProps> {
+export class Project extends AggregateRoot<ProjectProps> {
   get authorId() {
     return this.props.authorId;
   }

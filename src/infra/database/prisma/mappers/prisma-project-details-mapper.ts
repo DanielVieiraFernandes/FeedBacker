@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
+import { ProjectDetails } from '@/domain/feedbacker/enterprise/value-objects/project-details';
 import {
   Attachment as PrismaAttachment,
   Project as PrismaProject,

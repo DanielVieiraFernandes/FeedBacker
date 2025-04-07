@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Admin } from '@/domain/feedback/enterprise/entities/admin';
+import { Admin } from '@/domain/feedbacker/enterprise/entities/admin';
 import { Prisma, User as PrismaUser } from '@prisma/client';
 
 export class PrismaAdminMapper {

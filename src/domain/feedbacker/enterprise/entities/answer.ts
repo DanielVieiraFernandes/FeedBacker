@@ -1,4 +1,4 @@
-import { Entity } from '@/core/entities/entity';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 
@@ -10,7 +10,7 @@ export interface AnswerProps {
   updatedAt?: Date | null;
 }
 
-export class Answer extends Entity<AnswerProps> {
+export class Answer extends AggregateRoot<AnswerProps> {
   get authorId() {
     return this.props.authorId;
   }

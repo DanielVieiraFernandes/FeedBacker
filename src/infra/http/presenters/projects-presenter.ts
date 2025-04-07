@@ -1,4 +1,4 @@
-import { Project } from '@/domain/feedback/enterprise/entities/project';
+import { Project } from '@/domain/feedbacker/enterprise/entities/project';
 export class ProjectsPresenter {
   static toHttp(project: Project) {
     return {

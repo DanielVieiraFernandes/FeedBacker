@@ -1,5 +1,5 @@
 import { Either, right } from '@/core/either';
-import { Feedback } from '@/domain/feedback/enterprise/entities/feedback';
+import { Feedback } from '@/domain/feedbacker/enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 
 interface FetchFeedbacksByProjectUseCaseRequest {

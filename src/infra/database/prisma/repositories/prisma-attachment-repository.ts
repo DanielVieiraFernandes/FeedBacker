@@ -1,5 +1,5 @@
-import { AttachmentRepository } from '@/domain/feedback/application/repositories/attachment-repository';
-import { Attachment } from '@/domain/feedback/enterprise/entities/attachment';
+import { AttachmentRepository } from '@/domain/feedbacker/application/repositories/attachment-repository';
+import { Attachment } from '@/domain/feedbacker/enterprise/entities/attachment';
 import { Injectable } from '@nestjs/common';
 import { PrismaAttachmentMapper } from '../mappers/prisma-attachment-mapper';
 import { PrismaService } from '../prisma.service';

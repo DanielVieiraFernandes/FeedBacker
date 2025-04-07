@@ -1,5 +1,5 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Member } from '@/domain/feedback/enterprise/entities/member';
+import { Member } from '@/domain/feedbacker/enterprise/entities/member';
 import { Prisma, User as PrismaUser } from '@prisma/client';
 
 export class PrismaMemberMapper {

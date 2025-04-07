@@ -1,4 +1,4 @@
-import { CreateFeedbackAnswerUseCase } from '@/domain/feedback/application/use-cases/create-feedback-answer';
+import { CreateFeedbackAnswerUseCase } from '@/domain/feedbacker/application/use-cases/create-feedback-answer';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
 import {

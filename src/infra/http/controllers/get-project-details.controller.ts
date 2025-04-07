@@ -1,5 +1,5 @@
-import { ProjectDoesNotExistError } from '@/domain/feedback/application/use-cases/errors/project-does-not-exist';
-import { GetProjectDetailsUseCase } from '@/domain/feedback/application/use-cases/get-project-details';
+import { ProjectDoesNotExistError } from '@/domain/feedbacker/application/use-cases/errors/project-does-not-exist';
+import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-cases/get-project-details';
 import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,

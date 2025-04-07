@@ -1,4 +1,4 @@
-import { Attachment } from '@/domain/feedback/enterprise/entities/attachment';
+import { Attachment } from '@/domain/feedbacker/enterprise/entities/attachment';
 
 export class ProjectAttachmentPresenter {
   static toHttp(attachment: Attachment) {

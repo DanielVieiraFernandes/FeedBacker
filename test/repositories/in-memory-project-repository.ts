@@ -1,9 +1,9 @@
-import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
-import { ProjectAttachmentsRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { Attachment } from '@/domain/feedback/enterprise/entities/attachment';
-import { Project } from '@/domain/feedback/enterprise/entities/project';
-import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
-import { ProjectRepository } from 'src/domain/feedback/application/repositories/project-repository';
+import { findByIdProps } from '@/domain/feedbacker/application/repositories/interfaces/find-by-d-interface';
+import { ProjectAttachmentsRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
+import { ProjectRepository } from '@/domain/feedbacker/application/repositories/project-repository';
+import { Attachment } from '@/domain/feedbacker/enterprise/entities/attachment';
+import { Project } from '@/domain/feedbacker/enterprise/entities/project';
+import { ProjectDetails } from '@/domain/feedbacker/enterprise/value-objects/project-details';
 
 export class InMemoryProjectRepository implements ProjectRepository {
   public items: Project[] = [];

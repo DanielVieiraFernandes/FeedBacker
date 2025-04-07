@@ -1,4 +1,4 @@
-import { FetchRecentProjectsUseCase } from '@/domain/feedback/application/use-cases/fetch-recent-projects';
+import { FetchRecentProjectsUseCase } from '@/domain/feedbacker/application/use-cases/fetch-recent-projects';
 import { Public } from '@/infra/auth/public';
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { z } from 'zod';

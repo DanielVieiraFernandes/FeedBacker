@@ -1,5 +1,5 @@
-import { AttachmentRepository } from '@/domain/feedback/application/repositories/attachment-repository';
-import { Attachment } from '@/domain/feedback/enterprise/entities/attachment';
+import { AttachmentRepository } from '@/domain/feedbacker/application/repositories/attachment-repository';
+import { Attachment } from '@/domain/feedbacker/enterprise/entities/attachment';
 
 export class InMemoryAttachmentRepository implements AttachmentRepository {
   public items: Attachment[] = [];

@@ -1,5 +1,5 @@
-import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { ProjectAttachment } from '@/domain/feedback/enterprise/entities/project-attachment';
+import { ProjectAttachmentRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
+import { ProjectAttachment } from '@/domain/feedbacker/enterprise/entities/project-attachment';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 

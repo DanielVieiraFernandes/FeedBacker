@@ -1,7 +1,7 @@
 import {
   Member,
   MemberProps,
-} from '@/domain/feedback/enterprise/entities/member';
+} from '@/domain/feedbacker/enterprise/entities/member';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeMember(

@@ -1,8 +1,8 @@
-import { AttachmentRepository } from '@/domain/feedback/application/repositories/attachment-repository';
-import { findByIdProps } from '@/domain/feedback/application/repositories/interfaces/find-by-d-interface';
-import { ProjectRepository } from '@/domain/feedback/application/repositories/project-repository';
-import { Project } from '@/domain/feedback/enterprise/entities/project';
-import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
+import { AttachmentRepository } from '@/domain/feedbacker/application/repositories/attachment-repository';
+import { findByIdProps } from '@/domain/feedbacker/application/repositories/interfaces/find-by-d-interface';
+import { ProjectRepository } from '@/domain/feedbacker/application/repositories/project-repository';
+import { Project } from '@/domain/feedbacker/enterprise/entities/project';
+import { ProjectDetails } from '@/domain/feedbacker/enterprise/value-objects/project-details';
 import { Injectable } from '@nestjs/common';
 import { PrismaProjectDetailsMapper } from '../mappers/prisma-project-details-mapper';
 import { PrismaProjectMapper } from '../mappers/prisma-project-mapper';
@@ -11,10 +11,7 @@ import { PrismaAttachmentRepository } from './prisma-attachment-repository';
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
-  constructor(
-    private prisma: PrismaService,
-    
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async findMany(page: number): Promise<Project[]> {
     const projects = await this.prisma.project.findMany({

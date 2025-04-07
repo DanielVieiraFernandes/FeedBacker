@@ -1,5 +1,5 @@
-import { CreateMemberUseCase } from '@/domain/feedback/application/use-cases/create-member';
-import { MemberAlreadyExistsError } from '@/domain/feedback/application/use-cases/errors/member-already-exists';
+import { CreateMemberUseCase } from '@/domain/feedbacker/application/use-cases/create-member';
+import { MemberAlreadyExistsError } from '@/domain/feedbacker/application/use-cases/errors/member-already-exists';
 import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,

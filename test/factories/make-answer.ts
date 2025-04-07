@@ -1,7 +1,7 @@
 import {
   Answer,
   AnswerProps,
-} from '@/domain/feedback/enterprise/entities/answer';
+} from '@/domain/feedbacker/enterprise/entities/answer';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeAnswer(

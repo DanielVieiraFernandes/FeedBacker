@@ -1,5 +1,5 @@
-import { Member } from '@/domain/feedback/enterprise/entities/member';
-import { MemberRepository } from 'src/domain/feedback/application/repositories/member-repository';
+import { MemberRepository } from '@/domain/feedbacker/application/repositories/member-repository';
+import { Member } from '@/domain/feedbacker/enterprise/entities/member';
 
 export class InMemoryMemberRepository implements MemberRepository {
   public items: Member[] = [];

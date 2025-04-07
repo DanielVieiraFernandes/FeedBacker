@@ -1,5 +1,5 @@
-import { ProjectAttachmentsRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { ProjectAttachment } from '@/domain/feedback/enterprise/entities/project-attachment';
+import { ProjectAttachmentsRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
+import { ProjectAttachment } from '@/domain/feedbacker/enterprise/entities/project-attachment';
 
 export class InMemoryProjectAttachmentsRepository
   implements ProjectAttachmentsRepository

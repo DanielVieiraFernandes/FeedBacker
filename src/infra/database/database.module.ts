@@ -1,10 +1,10 @@
-import { AdminRepository } from '@/domain/feedback/application/repositories/admin-repository';
-import { AnswerRepository } from '@/domain/feedback/application/repositories/answer-repository';
-import { AttachmentRepository } from '@/domain/feedback/application/repositories/attachment-repository';
-import { FeedbackRepository } from '@/domain/feedback/application/repositories/feedback-repository';
-import { MemberRepository } from '@/domain/feedback/application/repositories/member-repository';
-import { ProjectAttachmentRepository } from '@/domain/feedback/application/repositories/project-attachment-repository';
-import { ProjectRepository } from '@/domain/feedback/application/repositories/project-repository';
+import { AdminRepository } from '@/domain/feedbacker/application/repositories/admin-repository';
+import { AnswerRepository } from '@/domain/feedbacker/application/repositories/answer-repository';
+import { AttachmentRepository } from '@/domain/feedbacker/application/repositories/attachment-repository';
+import { FeedbackRepository } from '@/domain/feedbacker/application/repositories/feedback-repository';
+import { MemberRepository } from '@/domain/feedbacker/application/repositories/member-repository';
+import { ProjectAttachmentRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
+import { ProjectRepository } from '@/domain/feedbacker/application/repositories/project-repository';
 import { Module } from '@nestjs/common';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaAdminRepository } from './prisma/repositories/prisma-admin-repository';

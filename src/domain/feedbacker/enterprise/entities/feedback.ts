@@ -1,3 +1,4 @@
+import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
@@ -12,7 +13,7 @@ export interface FeedbackProps {
   updatedAt?: Date | null;
 }
 
-export class Feedback extends Entity<FeedbackProps> {
+export class Feedback extends AggregateRoot<FeedbackProps> {
   get authorId() {
     return this.props.authorId;
   }

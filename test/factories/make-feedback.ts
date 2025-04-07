@@ -1,7 +1,7 @@
 import {
   Feedback,
   FeedbackProps,
-} from '@/domain/feedback/enterprise/entities/feedback';
+} from '@/domain/feedbacker/enterprise/entities/feedback';
 import { faker } from '@faker-js/faker';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeFeedback(

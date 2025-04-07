@@ -1,4 +1,4 @@
-import { CreateProjectUseCase } from '@/domain/feedback/application/use-cases/create-project';
+import { CreateProjectUseCase } from '@/domain/feedbacker/application/use-cases/create-project';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';

@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import {
   UploadParams,
   Uploader,
-} from '@/domain/feedback/application/storage/uploader';
+} from '@/domain/feedbacker/application/storage/uploader';
 
 interface Upload {
   fileName: string;

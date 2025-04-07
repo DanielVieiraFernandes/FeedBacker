@@ -1,5 +1,5 @@
-import { AnswerRepository } from '@/domain/feedback/application/repositories/answer-repository';
-import { Answer } from '@/domain/feedback/enterprise/entities/answer';
+import { AnswerRepository } from '@/domain/feedbacker/application/repositories/answer-repository';
+import { Answer } from '@/domain/feedbacker/enterprise/entities/answer';
 
 export class InMemoryAnswerRepository implements AnswerRepository {
   public items: Answer[] = [];

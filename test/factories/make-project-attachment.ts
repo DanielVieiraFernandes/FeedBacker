@@ -1,7 +1,7 @@
 import {
   ProjectAttachment,
   ProjectAttachmentProps,
-} from '@/domain/feedback/enterprise/entities/project-attachment';
+} from '@/domain/feedbacker/enterprise/entities/project-attachment';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 export function makeProjectAttachment(
   override: Partial<ProjectAttachmentProps> = {},

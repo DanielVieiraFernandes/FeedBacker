@@ -1,4 +1,4 @@
-import { ProjectDetails } from '@/domain/feedback/enterprise/value-objects/project-details';
+import { ProjectDetails } from '@/domain/feedbacker/enterprise/value-objects/project-details';
 import { ProjectAttachmentPresenter } from './project-attachment-presenter';
 
 export class ProjectDetailsPresenter {

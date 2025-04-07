@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { Project } from '@/domain/feedback/enterprise/entities/project';
-import { ProjectAttachment } from '@/domain/feedback/enterprise/entities/project-attachment';
+import { Project } from '@/domain/feedbacker/enterprise/entities/project';
+import { ProjectAttachment } from '@/domain/feedbacker/enterprise/entities/project-attachment';
 import {
   Prisma,
   Attachment as PrismaAttachment,
