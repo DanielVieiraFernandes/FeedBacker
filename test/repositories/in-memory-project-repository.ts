@@ -10,8 +10,24 @@ export class InMemoryProjectRepository implements ProjectRepository {
 
   constructor(private projectAttachment: ProjectAttachmentsRepository) {}
 
-  findDetailsById(param: findByIdProps): Promise<ProjectDetails | null> {
-    throw new Error('Method not implemented.');
+  async findDetailsById({ id }: findByIdProps): Promise<ProjectDetails | null> {
+    const project = this.items.find(item => item.id.toString() === id);
+
+    if (!project) {
+      return null;
+    }
+
+    return ProjectDetails.create({
+      projectId: project.id,
+      attachments: [],
+      author: '',
+      authorId: project.authorId,
+      createdAt: project.createdAt,
+      description: project.description,
+      repositoryLink: project.repositoryLink,
+      title: project.title,
+      updatedAt: project.updatedAt,
+    });
   }
 
   async create(project: Project) {
