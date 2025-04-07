@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
+import { ProjectDetails } from '../../enterprise/value-objects/project-details';
 import { ProjectRepository } from '../repositories/project-repository';
 import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
-import { ProjectDetails } from '../../enterprise/value-objects/project-details';
 
 interface GetProjectDetailsUseCaseRequest {
   projectId: string;
