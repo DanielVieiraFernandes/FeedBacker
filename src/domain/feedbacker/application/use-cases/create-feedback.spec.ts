@@ -1,8 +1,8 @@
+import { InvalidGradeError } from '@/core/error/errors/invalid-grade-error';
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { CreateFeedbackUseCase } from './create-feedback';
-import { InvalidGradeError } from './errors/invalid-grade-error';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
 let sut: CreateFeedbackUseCase;

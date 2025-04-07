@@ -1,6 +1,6 @@
 import { error } from 'console';
+import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { AuthenticateAdminUseCase } from '@/domain/feedbacker/application/use-cases/authenticate-admin';
-import { WrongCredentialsError } from '@/domain/feedbacker/application/use-cases/errors/wrong-credentials-error';
 import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,

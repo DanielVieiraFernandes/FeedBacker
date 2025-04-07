@@ -1,11 +1,11 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeProject } from 'test/factories/make-project';
 import { makeProjectAttachment } from 'test/factories/make-project-attachment';
 import { InMemoryProjectAttachmentsRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
 import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { DeleteProjectUseCase } from './delete-project';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
 let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentsRepository;

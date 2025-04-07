@@ -1,5 +1,5 @@
+import { AdminAlreadyExistsError } from '@/core/error/errors/admin-already-exists';
 import { CreateAdminUseCase } from '@/domain/feedbacker/application/use-cases/create-admin';
-import { AdminAlreadyExistsError } from '@/domain/feedbacker/application/use-cases/errors/admin-already-exists';
 import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,

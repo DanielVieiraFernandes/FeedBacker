@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either';
+import { AdminAlreadyExistsError } from '@/core/error/errors/admin-already-exists';
 import { Injectable } from '@nestjs/common';
 import { Admin } from '../../enterprise/entities/admin';
 import { HashGenerator } from '../cryptography/hash-generator';
 import { AdminRepository } from '../repositories/admin-repository';
-import { AdminAlreadyExistsError } from './errors/admin-already-exists';
 
 interface CreateAdminUseCaseRequest {
   name: string;

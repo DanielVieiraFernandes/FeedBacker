@@ -1,12 +1,12 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { FeedbackDoesNotExistError } from '@/core/error/errors/feedback-does-not-exist';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { makeAdmin } from 'test/factories/make-admin';
 import { makeFeedback } from 'test/factories/make-feedback';
 import { makeMember } from 'test/factories/make-member';
 import { makeProject } from 'test/factories/make-project';
 import { InMemoryFeedbackRepository } from 'test/repositories/in-memory-feedback-repository';
 import { EditFeedbackUseCase } from './edit-feedback';
-import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 let inMemoryFeedbackRepository: InMemoryFeedbackRepository;
 let sut: EditFeedbackUseCase;

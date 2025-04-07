@@ -1,5 +1,5 @@
+import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { AuthenticateMemberUseCase } from '@/domain/feedbacker/application/use-cases/authenticate-member';
-import { WrongCredentialsError } from '@/domain/feedbacker/application/use-cases/errors/wrong-credentials-error';
 import { Public } from '@/infra/auth/public';
 import {
   BadRequestException,

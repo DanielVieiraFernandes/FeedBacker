@@ -1,4 +1,4 @@
-import { ProjectDoesNotExistError } from '@/domain/feedbacker/application/use-cases/errors/project-does-not-exist';
+import { ProjectDoesNotExistError } from '@/core/error/errors/project-does-not-exist';
 import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-cases/get-project-details';
 import { Public } from '@/infra/auth/public';
 import {

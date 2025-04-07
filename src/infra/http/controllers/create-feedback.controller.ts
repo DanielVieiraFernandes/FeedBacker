@@ -1,5 +1,5 @@
+import { InvalidGradeError } from '@/core/error/errors/invalid-grade-error';
 import { CreateFeedbackUseCase } from '@/domain/feedbacker/application/use-cases/create-feedback';
-import { InvalidGradeError } from '@/domain/feedbacker/application/use-cases/errors/invalid-grade-error';
 import { CurrentUser } from '@/infra/auth/current-user-decorator';
 import { UserPayload } from '@/infra/auth/jwt.strategy';
 import {

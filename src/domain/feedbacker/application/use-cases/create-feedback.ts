@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { InvalidGradeError } from '@/core/error/errors/invalid-grade-error';
 import { Injectable } from '@nestjs/common';
 import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
-import { InvalidGradeError } from './errors/invalid-grade-error';
 
 interface CreateFeedbackUseCaseRequest {
   authorId: string;

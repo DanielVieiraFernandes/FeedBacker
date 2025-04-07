@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
+import { FeedbackDoesNotExistError } from '@/core/error/errors/feedback-does-not-exist';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { Feedback } from '../../enterprise/entities/feedback';
 import { FeedbackRepository } from '../repositories/feedback-repository';
-import { FeedbackDoesNotExistError } from './errors/feedback-does-not-exist';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface EditFeedbackUseCaseRequest {
   authorId: string;

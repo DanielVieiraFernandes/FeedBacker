@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either';
+import { ResourceNotFoundError } from '@/core/error/errors/resource-not-found';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { Injectable } from '@nestjs/common';
 import { Answer } from '../../enterprise/entities/answer';
 import { AnswerRepository } from '../repositories/answer-repository';
-import { ResourceNotFoundError } from './errors/resource-not-found';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface EditFeedbackAnswerUseCaseRequest {
   authorId: string;

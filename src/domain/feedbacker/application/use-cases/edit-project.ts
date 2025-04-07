@@ -1,12 +1,12 @@
 import { Either, left, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { ProjectDoesNotExistError } from '@/core/error/errors/project-does-not-exist';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { Project } from '../../enterprise/entities/project';
 import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { ProjectAttachmentList } from '../../enterprise/entities/project-attachment-list';
 import { ProjectAttachmentsRepository } from '../repositories/project-attachment-repository';
 import { ProjectRepository } from '../repositories/project-repository';
-import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface EditProjectUseCaseRequest {
   authorId: string;

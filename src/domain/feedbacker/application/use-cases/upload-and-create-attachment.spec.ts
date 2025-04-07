@@ -1,6 +1,6 @@
+import { InvalidAttachmentTypeError } from '@/core/error/errors/invalid-attachment-file-type';
 import { InMemoryAttachmentRepository } from 'test/repositories/in-memory-attachment-repository';
 import { FakeUploader } from 'test/storage/fake-uploader';
-import { InvalidAttachmentTypeError } from './errors/invalid-attachment-file-type';
 import { UploadAndCreateAttachmentUseCase } from './upload-and-create-attachment';
 
 let inMemoryAttachmentRepository: InMemoryAttachmentRepository;

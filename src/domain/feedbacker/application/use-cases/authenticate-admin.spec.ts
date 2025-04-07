@@ -1,9 +1,9 @@
+import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
 import { FakeHasher } from 'test/cryptography/fake-hasher';
 import { makeAdmin } from 'test/factories/make-admin';
 import { InMemoryAdminRepository } from 'test/repositories/in-memory-admin-repository';
 import { AuthenticateAdminUseCase } from './authenticate-admin';
-import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 let inMemoryAdminRepository: InMemoryAdminRepository;
 let fakeHasher: FakeHasher;

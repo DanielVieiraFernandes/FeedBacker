@@ -1,8 +1,8 @@
 import { Either, left, right } from '@/core/either';
+import { InvalidAttachmentTypeError } from '@/core/error/errors/invalid-attachment-file-type';
 import { Attachment } from '../../enterprise/entities/attachment';
 import { AttachmentRepository } from '../repositories/attachment-repository';
 import { Uploader } from '../storage/uploader';
-import { InvalidAttachmentTypeError } from './errors/invalid-attachment-file-type';
 
 interface UploadAndCreateAttachmentUseCaseRequest {
   fileName: string;

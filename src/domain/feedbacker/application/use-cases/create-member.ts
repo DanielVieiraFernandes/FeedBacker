@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either';
+import { MemberAlreadyExistsError } from '@/core/error/errors/member-already-exists';
 import { Injectable } from '@nestjs/common';
 import { Member } from '../../enterprise/entities/member';
 import { HashGenerator } from '../cryptography/hash-generator';
 import { MemberRepository } from '../repositories/member-repository';
-import { MemberAlreadyExistsError } from './errors/member-already-exists';
 
 interface CreateMemberUseCaseRequest {
   name: string;

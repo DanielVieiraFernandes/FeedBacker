@@ -1,9 +1,9 @@
+import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
 import { FakeHasher } from 'test/cryptography/fake-hasher';
 import { makeMember } from 'test/factories/make-member';
 import { InMemoryMemberRepository } from 'test/repositories/in-memory-member-repository';
 import { AuthenticateMemberUseCase } from './authenticate-member';
-import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 let inMemoryMemberRepository: InMemoryMemberRepository;
 let fakeHasher: FakeHasher;

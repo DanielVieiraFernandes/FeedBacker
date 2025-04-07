@@ -2,6 +2,7 @@ import { AggregateRoot } from '@/core/entities/aggregate-root';
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Optional } from '@/core/types/optional';
+import { FeedbackCreatedEvent } from './events/feedback-created-event';
 
 export interface FeedbackProps {
   authorId: UniqueEntityID;
@@ -84,6 +85,12 @@ export class Feedback extends AggregateRoot<FeedbackProps> {
       },
       id
     );
+
+    const isNewFeedback = !id;
+
+    if (isNewFeedback) {
+      feedback.addDomainEvent(new FeedbackCreatedEvent(feedback));
+    }
 
     return feedback;
   }

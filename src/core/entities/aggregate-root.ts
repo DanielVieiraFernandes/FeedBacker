@@ -2,10 +2,10 @@ import { DomainEvent } from '../events/domain-event';
 import { DomainEvents } from '../events/domain-events';
 import { Entity } from './entity';
 
-export class AggregateRoot<Props> extends Entity<Props> {
+export abstract class AggregateRoot<Props> extends Entity<Props> {
   private _domainEvents: DomainEvent[] = [];
 
-  get domainEvents() {
+  get domainEvents(): DomainEvent[] {
     return this._domainEvents;
   }
 

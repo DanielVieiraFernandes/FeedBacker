@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/either';
+import { ProjectDoesNotExistError } from '@/core/error/errors/project-does-not-exist';
+import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
 import { ProjectRepository } from '../repositories/project-repository';
-import { ProjectDoesNotExistError } from './errors/project-does-not-exist';
-import { UserNotAllowedError } from './errors/user-not-allowed';
 
 interface DeleteProjectUseCaseRequest {
   authorId: string;

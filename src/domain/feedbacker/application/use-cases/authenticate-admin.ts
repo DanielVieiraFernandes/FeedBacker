@@ -1,9 +1,9 @@
 import { Either, left, right } from '@/core/either';
+import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { Injectable } from '@nestjs/common';
 import { Encrypter } from '../cryptography/encrypter';
 import { HashComparer } from '../cryptography/hash-comparer';
 import { AdminRepository } from '../repositories/admin-repository';
-import { WrongCredentialsError } from './errors/wrong-credentials-error';
 
 interface AuthenticateAdminUseCaseRequest {
   email: string;
