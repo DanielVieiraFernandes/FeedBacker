@@ -10,6 +10,7 @@ import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-ca
 import { Module } from '@nestjs/common';
 import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
+import { StorageModule } from '../storage/storage.module';
 import { AuthenticateAdminAccountController } from './controllers/authenticate-admin-account.controller';
 import { AuthenticateMemberAccountController } from './controllers/authenticate-member-account.controller';
 import { CreateAdminAccountController } from './controllers/create-admin-account.controller';
@@ -21,7 +22,7 @@ import { FetchRecentProjectsController } from './controllers/fetch-recent-projec
 import { GetProjectDetailsController } from './controllers/get-project-details.controller';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     CreateMemberAccountController,
     CreateAdminAccountController,
