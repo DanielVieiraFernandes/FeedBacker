@@ -1,4 +1,3 @@
-import { error } from 'console';
 import { WrongCredentialsError } from '@/core/error/errors/wrong-credentials-error';
 import { AuthenticateAdminUseCase } from '@/domain/feedbacker/application/use-cases/authenticate-admin';
 import { Public } from '@/infra/auth/public';

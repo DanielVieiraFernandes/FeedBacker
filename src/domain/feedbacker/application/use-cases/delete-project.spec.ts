@@ -6,6 +6,7 @@ import { makeProjectAttachment } from 'test/factories/make-project-attachment';
 import { InMemoryProjectAttachmentsRepository } from 'test/repositories/in-memory-project-attachment-repoitory';
 import { InMemoryProjectRepository } from 'test/repositories/in-memory-project-repository';
 import { DeleteProjectUseCase } from './delete-project';
+import { ProjectAttachmentList } from '../../enterprise/entities/project-attachment-list';
 
 let inMemoryProjectRepository: InMemoryProjectRepository;
 let inMemoryProjectAttachmentRepository: InMemoryProjectAttachmentsRepository;
@@ -26,13 +27,16 @@ describe('Delete project', () => {
       authorId: new UniqueEntityID('author-1'),
     });
 
+    const projectAttachment = makeProjectAttachment({
+      projectId: newProject.id,
+    });
+
+    newProject.attachments.update([projectAttachment]);
+
     inMemoryProjectRepository.items.push(newProject);
 
-    inMemoryProjectAttachmentRepository.items.push(
-      makeProjectAttachment({
-        projectId: newProject.id,
-      })
-    );
+
+    inMemoryProjectAttachmentRepository.items.push(projectAttachment);
 
     await sut.execute({
       authorId: 'author-1',

@@ -65,6 +65,8 @@ export class InMemoryProjectRepository implements ProjectRepository {
       this.items.splice(itemIndex, 1);
     }
 
-    this.projectAttachment.deleteManyByProjectId(project.id.toString());
+    await this.projectAttachment.deleteManyByProjectId(
+      project.attachments.getItems()
+    );
   }
 }

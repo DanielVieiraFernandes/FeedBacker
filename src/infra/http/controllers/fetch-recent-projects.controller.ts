@@ -12,7 +12,7 @@ const pageQueryValidationSchema = z
   .transform(Number)
   .pipe(z.number().min(1));
 
-type PageQueryValidationSchema = z.infer<typeof pageQueryValidationSchema>;
+  type PageQueryValidationSchema = z.infer<typeof pageQueryValidationSchema>;
 
 const queryValidationPipe = new ZodValidationPipe(pageQueryValidationSchema);
 

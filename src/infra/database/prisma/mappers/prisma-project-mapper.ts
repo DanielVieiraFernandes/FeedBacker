@@ -1,12 +1,12 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Project } from '@/domain/feedbacker/enterprise/entities/project';
 import { ProjectAttachment } from '@/domain/feedbacker/enterprise/entities/project-attachment';
+import { ProjectAttachmentList } from '@/domain/feedbacker/enterprise/entities/project-attachment-list';
 import {
   Prisma,
   Attachment as PrismaAttachment,
   Project as PrismaProject,
 } from '@prisma/client';
-
 type PrismaProjectWithAttachment = PrismaProject & {
   attachments: PrismaAttachment[];
 };
@@ -16,10 +16,12 @@ export class PrismaProjectMapper {
     return Project.create({
       authorId: new UniqueEntityID(project.authorId),
       description: project.description,
-      attachments: project.attachments.map(attachment =>
-        ProjectAttachment.create({
-          attachmentId: attachment.id,
-          projectId: project.id.toString(),
+      attachments: new ProjectAttachmentList(
+        project.attachments.map(attachment => {
+          return ProjectAttachment.create({
+            attachmentId: new UniqueEntityID(attachment.id),
+            projectId: new UniqueEntityID(project.id),
+          });
         })
       ),
       repositoryLink: project.repositoryLink,

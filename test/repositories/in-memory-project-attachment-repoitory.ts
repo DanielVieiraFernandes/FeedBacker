@@ -6,6 +6,12 @@ export class InMemoryProjectAttachmentsRepository
 {
   public items: ProjectAttachment[] = [];
 
+  async createMany(projectAttachments: ProjectAttachment[]): Promise<void> {
+    for (let attachment of projectAttachments) {
+      this.items.push(attachment);
+    }
+  }
+
   async findManyByProjectId(projectId: string): Promise<ProjectAttachment[]> {
     const projectAttachments = this.items.filter(
       item => item.id.toString() === projectId
@@ -13,11 +19,16 @@ export class InMemoryProjectAttachmentsRepository
 
     return projectAttachments;
   }
-  async deleteManyByProjectId(projectId: string): Promise<void> {
-    const projectAttachments = this.items.filter(
-      item => item.projectId.toString() !== projectId
+  async deleteManyByProjectId(
+    projectAttachments: ProjectAttachment[]
+  ): Promise<void> {
+
+    console.log(projectAttachments[0].projectId);
+
+    const newProjectAttachments = this.items.filter(
+      item => item.projectId !== projectAttachments[0].projectId
     );
 
-    this.items = projectAttachments;
+    this.items = newProjectAttachments;
   }
 }

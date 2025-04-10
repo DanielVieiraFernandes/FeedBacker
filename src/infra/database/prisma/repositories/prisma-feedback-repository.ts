@@ -44,6 +44,9 @@ export class PrismaFeedbackRepository implements FeedbackRepository {
   }
 
   async findByProject(projectId: string, page: number): Promise<Feedback[]> {
+
+    console.log('Received values:', { projectId, page, skip: (page - 1) * 20 });
+    
     const feedbacks = await this.prisma.feedback.findMany({
       where: {
         projectId,

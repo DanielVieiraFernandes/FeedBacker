@@ -1,5 +1,6 @@
 import { Either, right } from '@/core/either';
 import { Feedback } from '@/domain/feedbacker/enterprise/entities/feedback';
+import { Injectable } from '@nestjs/common';
 import { FeedbackRepository } from '../repositories/feedback-repository';
 
 interface FetchFeedbacksByProjectUseCaseRequest {
@@ -14,6 +15,7 @@ type FetchFeedbacksByProjectUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class FetchFeedbacksByProjectUseCase {
   constructor(private feedbackRepository: FeedbackRepository) {}
 

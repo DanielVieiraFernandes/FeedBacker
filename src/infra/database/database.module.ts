@@ -3,7 +3,7 @@ import { AnswerRepository } from '@/domain/feedbacker/application/repositories/a
 import { AttachmentRepository } from '@/domain/feedbacker/application/repositories/attachment-repository';
 import { FeedbackRepository } from '@/domain/feedbacker/application/repositories/feedback-repository';
 import { MemberRepository } from '@/domain/feedbacker/application/repositories/member-repository';
-import { ProjectAttachmentRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
+import { ProjectAttachmentsRepository } from '@/domain/feedbacker/application/repositories/project-attachment-repository';
 import { ProjectRepository } from '@/domain/feedbacker/application/repositories/project-repository';
 import { Module } from '@nestjs/common';
 import { PrismaService } from './prisma/prisma.service';
@@ -43,7 +43,7 @@ import { PrismaProjectRepository } from './prisma/repositories/prisma-project-re
       useClass: PrismaAttachmentRepository,
     },
     {
-      provide: ProjectAttachmentRepository,
+      provide: ProjectAttachmentsRepository,
       useClass: PrismaProjectAttachmentRepository,
     },
   ],
@@ -54,7 +54,7 @@ import { PrismaProjectRepository } from './prisma/repositories/prisma-project-re
     FeedbackRepository,
     AnswerRepository,
     AttachmentRepository,
-    ProjectAttachmentRepository,
+    ProjectAttachmentsRepository,
     PrismaService,
   ],
 })

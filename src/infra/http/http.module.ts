@@ -5,6 +5,7 @@ import { CreateFeedbackUseCase } from '@/domain/feedbacker/application/use-cases
 import { CreateFeedbackAnswerUseCase } from '@/domain/feedbacker/application/use-cases/create-feedback-answer';
 import { CreateMemberUseCase } from '@/domain/feedbacker/application/use-cases/create-member';
 import { CreateProjectUseCase } from '@/domain/feedbacker/application/use-cases/create-project';
+import { FetchFeedbacksByProjectUseCase } from '@/domain/feedbacker/application/use-cases/fetch-feedbacks-by-project';
 import { FetchRecentProjectsUseCase } from '@/domain/feedbacker/application/use-cases/fetch-recent-projects';
 import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-cases/get-project-details';
 import { Module } from '@nestjs/common';
@@ -18,6 +19,7 @@ import { CreateFeedbackAnswerController } from './controllers/create-feedback-an
 import { CreateFeedbackController } from './controllers/create-feedback.controller';
 import { CreateMemberAccountController } from './controllers/create-member-account.controller';
 import { CreateProjectController } from './controllers/create-project.controller';
+import { FetchFeedbacksByProjectController } from './controllers/fetch-feedbacks-by-project.controller';
 import { FetchRecentProjectsController } from './controllers/fetch-recent-projects.controller';
 import { GetProjectDetailsController } from './controllers/get-project-details.controller';
 
@@ -33,6 +35,7 @@ import { GetProjectDetailsController } from './controllers/get-project-details.c
     CreateFeedbackAnswerController,
     FetchRecentProjectsController,
     GetProjectDetailsController,
+    FetchFeedbacksByProjectController,
   ],
   providers: [
     CreateMemberUseCase,
@@ -44,6 +47,7 @@ import { GetProjectDetailsController } from './controllers/get-project-details.c
     CreateFeedbackAnswerUseCase,
     FetchRecentProjectsUseCase,
     GetProjectDetailsUseCase,
+    FetchFeedbacksByProjectUseCase,
   ],
 })
 export class HttpModule {}

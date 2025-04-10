@@ -83,3 +83,7 @@ GET {{baseUrl}}/projects?page=1
 ###
 
 GET {{baseUrl}}/projects/23667012-07e0-4e81-9ac7-cae56490f487
+
+###
+
+GET {{baseUrl}}/projects/6252f5d8-49cf-44f5-ae2f-7b39cc8aa242/feedbacks
