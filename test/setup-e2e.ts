@@ -2,8 +2,11 @@ import 'dotenv/config';
 import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { PrismaClient } from '@prisma/client';
+import { envSchema } from '@/infra/env/env';
 
 const prisma = new PrismaClient();
+
+const env = envSchema.parse(process.env);
 
 function generateUniqueDatabaseURL(schemaId: string) {
   if (!process.env.DATABASE_URL) {
