@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/either';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { ProjectDoesNotExistError } from '@/core/error/errors/project-does-not-exist';
 import { UserNotAllowedError } from '@/core/error/errors/user-not-allowed';
+import { Injectable } from '@nestjs/common';
 import { Project } from '../../enterprise/entities/project';
 import { ProjectAttachment } from '../../enterprise/entities/project-attachment';
 import { ProjectAttachmentList } from '../../enterprise/entities/project-attachment-list';
@@ -11,10 +12,10 @@ import { ProjectRepository } from '../repositories/project-repository';
 interface EditProjectUseCaseRequest {
   authorId: string;
   projectId: string;
-  title: string;
-  description: string;
-  repositoryLink: string;
-  attachmentsIds: string[];
+  title: string | null;
+  description: string | null;
+  repositoryLink: string | null;
+  attachmentsIds: string[] | null;
 }
 
 type EditProjectUseCaseResponse = Either<
@@ -24,6 +25,7 @@ type EditProjectUseCaseResponse = Either<
   }
 >;
 
+@Injectable()
 export class EditProjectUseCase {
   constructor(
     private projectRepository: ProjectRepository,
@@ -59,14 +61,16 @@ export class EditProjectUseCase {
       currentProjectAttachments
     );
 
-    const newProjectAttachments = attachmentsIds.map(attachmentId => {
-      return ProjectAttachment.create({
-        attachmentId: new UniqueEntityID(attachmentId),
-        projectId: project.id,
+    if (attachmentsIds) {
+      const newProjectAttachments = attachmentsIds.map(attachmentId => {
+        return ProjectAttachment.create({
+          attachmentId: new UniqueEntityID(attachmentId),
+          projectId: project.id,
+        });
       });
-    });
 
-    projectAttachmentList.update(newProjectAttachments);
+      projectAttachmentList.update(newProjectAttachments);
+    }
 
     project.attachments = projectAttachmentList;
     project.title = title;

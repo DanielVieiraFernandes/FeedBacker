@@ -5,6 +5,7 @@ import { CreateFeedbackUseCase } from '@/domain/feedbacker/application/use-cases
 import { CreateFeedbackAnswerUseCase } from '@/domain/feedbacker/application/use-cases/create-feedback-answer';
 import { CreateMemberUseCase } from '@/domain/feedbacker/application/use-cases/create-member';
 import { CreateProjectUseCase } from '@/domain/feedbacker/application/use-cases/create-project';
+import { EditProjectUseCase } from '@/domain/feedbacker/application/use-cases/edit-project';
 import { FetchFeedbacksByProjectUseCase } from '@/domain/feedbacker/application/use-cases/fetch-feedbacks-by-project';
 import { FetchRecentProjectsUseCase } from '@/domain/feedbacker/application/use-cases/fetch-recent-projects';
 import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-cases/get-project-details';
@@ -20,6 +21,7 @@ import { CreateFeedbackAnswerController } from './controllers/create-feedback-an
 import { CreateFeedbackController } from './controllers/create-feedback.controller';
 import { CreateMemberAccountController } from './controllers/create-member-account.controller';
 import { CreateProjectController } from './controllers/create-project.controller';
+import { EditProjectController } from './controllers/edit-project.controller';
 import { FetchFeedbacksByProjectController } from './controllers/fetch-feedbacks-by-project.controller';
 import { FetchRecentProjectsController } from './controllers/fetch-recent-projects.controller';
 import { GetProjectDetailsController } from './controllers/get-project-details.controller';
@@ -39,6 +41,7 @@ import { UploadAndCreateAttachmentController } from './controllers/upload-and-cr
     GetProjectDetailsController,
     FetchFeedbacksByProjectController,
     UploadAndCreateAttachmentController,
+    EditProjectController,
   ],
   providers: [
     CreateMemberUseCase,
@@ -52,6 +55,7 @@ import { UploadAndCreateAttachmentController } from './controllers/upload-and-cr
     GetProjectDetailsUseCase,
     FetchFeedbacksByProjectUseCase,
     UploadAndCreateAttachmentUseCase,
+    EditProjectUseCase,
   ],
 })
 export class HttpModule {}
