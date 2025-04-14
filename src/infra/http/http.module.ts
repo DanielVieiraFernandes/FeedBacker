@@ -8,6 +8,7 @@ import { CreateProjectUseCase } from '@/domain/feedbacker/application/use-cases/
 import { FetchFeedbacksByProjectUseCase } from '@/domain/feedbacker/application/use-cases/fetch-feedbacks-by-project';
 import { FetchRecentProjectsUseCase } from '@/domain/feedbacker/application/use-cases/fetch-recent-projects';
 import { GetProjectDetailsUseCase } from '@/domain/feedbacker/application/use-cases/get-project-details';
+import { UploadAndCreateAttachmentUseCase } from '@/domain/feedbacker/application/use-cases/upload-and-create-attachment';
 import { Module } from '@nestjs/common';
 import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
@@ -22,6 +23,7 @@ import { CreateProjectController } from './controllers/create-project.controller
 import { FetchFeedbacksByProjectController } from './controllers/fetch-feedbacks-by-project.controller';
 import { FetchRecentProjectsController } from './controllers/fetch-recent-projects.controller';
 import { GetProjectDetailsController } from './controllers/get-project-details.controller';
+import { UploadAndCreateAttachmentController } from './controllers/upload-and-create-attachments.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -36,6 +38,7 @@ import { GetProjectDetailsController } from './controllers/get-project-details.c
     FetchRecentProjectsController,
     GetProjectDetailsController,
     FetchFeedbacksByProjectController,
+    UploadAndCreateAttachmentController,
   ],
   providers: [
     CreateMemberUseCase,
@@ -48,6 +51,7 @@ import { GetProjectDetailsController } from './controllers/get-project-details.c
     FetchRecentProjectsUseCase,
     GetProjectDetailsUseCase,
     FetchFeedbacksByProjectUseCase,
+    UploadAndCreateAttachmentUseCase,
   ],
 })
 export class HttpModule {}

@@ -4,8 +4,8 @@ import {
   Uploader,
 } from '@/domain/feedbacker/application/storage/uploader';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { EnvService } from '../env/env.service';
 import { Injectable } from '@nestjs/common';
+import { EnvService } from '../env/env.service';
 
 @Injectable()
 export class R2Storage implements Uploader {
