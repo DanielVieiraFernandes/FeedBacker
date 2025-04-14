@@ -4,32 +4,32 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { hash } from 'bcryptjs';
 import request from 'supertest';
-import { AdminFactory } from 'test/factories/make-admin';
+import { MemberFactory } from 'test/factories/make-member';
 
-describe('authenticate admin (e2e)', () => {
+describe('authenticate member (e2e)', () => {
   let app: INestApplication;
-  let adminFactory: AdminFactory;
+  let memberFactory: MemberFactory;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [AdminFactory],
+      providers: [MemberFactory],
     }).compile();
 
     app = moduleRef.createNestApplication();
-    adminFactory = moduleRef.get(AdminFactory);
+    memberFactory = moduleRef.get(MemberFactory);
 
     await app.init();
   });
 
-  test('[POST] /sessions/admin', async () => {
-    await adminFactory.makePrismaAdmin({
+  test('[POST] /sessions/member', async () => {
+    await memberFactory.makePrismaMember({
       email: 'johndoe@gmail.com',
       password: await hash('123456', 8),
     });
 
     const response = await request(app.getHttpServer())
-      .post('/sessions/admin')
+      .post('/sessions/member')
       .send({
         email: 'johndoe@gmail.com',
         password: '123456',
